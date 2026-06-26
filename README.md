@@ -1,4 +1,4 @@
-# Projeto Data Fullstack (Olist E-Commerce)
+# Olist Logistics Prediction (Projeto Data Fullstack)
 
 > **Tema do projeto:** Análise e predição de performance logística e satisfação de clientes em um marketplace brasileiro.
 
