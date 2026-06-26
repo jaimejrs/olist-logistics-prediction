@@ -16,7 +16,7 @@ GROUP BY 1;
 
 -- Ticket médio e frete médio por mês
 SELECT date_trunc('month', purchase_ts) AS mes,
-       round(avg(valor_pago),2) AS ticket_medio,
-       round(avg(frete_total),2) AS frete_medio
+       round(avg(valor_pago)::numeric, 2) AS ticket_medio,
+       round(avg(frete_total)::numeric, 2) AS frete_medio
 FROM analytics.fact_orders
 GROUP BY 1 ORDER BY 1;
