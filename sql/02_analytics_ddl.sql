@@ -8,6 +8,7 @@
 DROP VIEW  IF EXISTS analytics.mart_customer_satisfaction;
 DROP VIEW  IF EXISTS analytics.mart_logistics;
 DROP TABLE IF EXISTS analytics.fact_orders;
+DROP TABLE IF EXISTS analytics.dim_date;
 
 -- ------------------------------------------------------------
 -- fact_orders
@@ -52,6 +53,12 @@ SELECT
     -- Geografias
     c.uf_cliente,
     s.uf_seller,
+    -- Distância seller→cliente (Haversine, km) — feature pré-compra do Modelo 1
+    ROUND((2 * 6371 * asin(sqrt(
+        power(sin(radians(gs.lat - gc.lat) / 2), 2) +
+        cos(radians(gc.lat)) * cos(radians(gs.lat)) *
+        power(sin(radians(gs.lng - gc.lng) / 2), 2)
+    )))::numeric, 2)                                                       AS distancia_km,
     -- Produto principal
     i.categoria_principal,
     -- Temporais (features seguras para Modelo 1 — existem no momento da compra)
@@ -59,6 +66,8 @@ SELECT
     EXTRACT(YEAR  FROM o.purchase_ts)::int                                 AS ano_compra,
     EXTRACT(MONTH FROM o.purchase_ts)::int                                 AS mes_compra,
     EXTRACT(DOW   FROM o.purchase_ts)::int                                 AS dia_semana_compra,
+    -- Prazo prometido pela Olist no checkout (estimado − compra) — pré-compra, sem leakage
+    ROUND((EXTRACT(EPOCH FROM (o.estimated_ts - o.purchase_ts)) / 86400.0)::numeric, 2) AS prazo_prometido_dias,
     -- Datas de entrega (pós-compra — usar apenas em análises e Modelo 2)
     o.estimated_ts,
     o.delivered_ts,
@@ -88,26 +97,54 @@ LEFT JOIN itens              i  ON i.order_id           = o.order_id
 LEFT JOIN staging.sellers    s  ON s.seller_id          = i.seller_principal_id
 LEFT JOIN pag                p  ON p.order_id           = o.order_id
 LEFT JOIN staging.order_reviews r ON r.order_id         = o.order_id
+LEFT JOIN staging.geolocation gc ON gc.zip_prefix       = c.zip_prefix::int  -- coords do cliente
+LEFT JOIN staging.geolocation gs ON gs.zip_prefix       = s.zip_prefix::int  -- coords do seller
 WHERE o.order_status = 'delivered'
   AND o.delivered_ts IS NOT NULL
   AND o.purchase_ts  >= '2017-01-01';
 
 -- ------------------------------------------------------------
+-- dim_date
+-- Dimensão calendário — uma linha por dia no intervalo dos pedidos
+-- Usado pelo Power BI para time intelligence (YTD, MoM, drill-down)
+-- ------------------------------------------------------------
+CREATE TABLE analytics.dim_date AS
+SELECT
+    d::date                                                     AS data,
+    EXTRACT(YEAR    FROM d)::int                                AS ano,
+    EXTRACT(QUARTER FROM d)::int                               AS trimestre,
+    EXTRACT(MONTH   FROM d)::int                               AS mes,
+    TO_CHAR(d, 'TMMonth')                                       AS nome_mes,
+    EXTRACT(WEEK    FROM d)::int                               AS semana_ano,
+    EXTRACT(DOW     FROM d)::int                               AS dia_semana,
+    TO_CHAR(d, 'TMDay')                                         AS nome_dia_semana,
+    EXTRACT(DAY     FROM d)::int                               AS dia,
+    CASE WHEN EXTRACT(DOW FROM d) IN (0, 6) THEN TRUE
+         ELSE FALSE END                                         AS fim_de_semana
+FROM generate_series(
+    (SELECT MIN(purchase_ts::date) FROM analytics.fact_orders),
+    (SELECT MAX(purchase_ts::date) FROM analytics.fact_orders),
+    '1 day'::interval
+) AS d;
+
+-- ------------------------------------------------------------
 -- mart_logistics
 -- Features disponíveis no momento da compra → Modelo 1 (flag_atraso)
--- Inclui métricas pós-entrega para análise, mas o notebook de ML
--- deve excluí-las do X_train (lead_time_dias, atraso_dias)
+-- purchase_date exposta para relacionamento com dim_date no Power BI
 -- ------------------------------------------------------------
 CREATE VIEW analytics.mart_logistics AS
 SELECT
     order_id,
     customer_unique_id,
+    purchase_ts::date   AS purchase_date,
     uf_cliente,
     uf_seller,
+    distancia_km,
     categoria_principal,
     ano_compra,
     mes_compra,
     dia_semana_compra,
+    prazo_prometido_dias,
     qtd_itens,
     qtd_sellers,
     valor_produtos,
@@ -124,17 +161,20 @@ FROM analytics.fact_orders;
 -- ------------------------------------------------------------
 -- mart_customer_satisfaction
 -- Todas as features + flag_atraso como feature → Modelo 2 (flag_review_ruim)
--- flag_atraso é permitida aqui pois o review ocorre após a entrega
+-- flag_atraso é permitida pois o review ocorre após a entrega
 -- ------------------------------------------------------------
 CREATE VIEW analytics.mart_customer_satisfaction AS
 SELECT
     order_id,
     customer_unique_id,
+    purchase_ts::date   AS purchase_date,
     uf_cliente,
     uf_seller,
+    distancia_km,
     categoria_principal,
     mes_compra,
     dia_semana_compra,
+    prazo_prometido_dias,
     qtd_itens,
     valor_produtos,
     frete_total,
