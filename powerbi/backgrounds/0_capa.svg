@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .t1{fill:#2B2B2B;font-weight:600;font-size:15px;}
+      .t2{fill:#9AA5A8;font-size:11px;}
+      .badge{fill:#0CAA9E;font-weight:700;font-size:15px;}
+    </style>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0B5563" flood-opacity="0.10"/>
+    </filter>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0CAA9E"/><stop offset="1" stop-color="#0B5563"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+  <rect width="1280" height="6" fill="url(#hero)"/>
+
+  <!-- HERO / contexto -->
+  <text x="640" y="150" text-anchor="middle" fill="#0B5563" font-family="'Segoe UI'" font-weight="700" font-size="54">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="200" text-anchor="middle" fill="#2B2B2B" font-family="'Segoe UI'" font-weight="700" font-size="34">Olist Logistics Prediction</text>
+  <text x="640" y="234" text-anchor="middle" class="t2" font-size="15">Prever atrasos de entrega e quedas de satisfação num marketplace brasileiro</text>
+  <rect x="500" y="252" width="280" height="3" rx="1.5" fill="#0CAA9E"/>
+  <text x="640" y="282" text-anchor="middle" fill="#5A6B6F" font-size="13">96.203 pedidos entregues  ·  2017–2018  ·  grão = 1 pedido</text>
+
+  <!-- NAV CARDS row 1 -->
+  <g filter="url(#sh)">
+    <rect x="140" y="320" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="481" y="320" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="822" y="320" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <!-- NAV CARDS row 2 -->
+  <g filter="url(#sh)">
+    <rect x="140" y="474" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="481" y="474" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="822" y="474" width="317" height="130" rx="10" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+
+  <!-- card 1 -->
+  <circle cx="178" cy="360" r="18" fill="#0CAA9E" fill-opacity="0.12"/><text x="178" y="365" text-anchor="middle" class="badge">1</text>
+  <text x="210" y="358" class="t1">Visão Executiva</text>
+  <text x="210" y="380" class="t2">KPIs gerais e tendências</text>
+  <rect x="156" y="420" width="120" height="3" rx="1.5" fill="#0CAA9E"/>
+  <!-- card 2 -->
+  <circle cx="519" cy="360" r="18" fill="#E4572E" fill-opacity="0.12"/><text x="519" y="365" text-anchor="middle" class="badge" fill="#E4572E">2</text>
+  <text x="551" y="358" class="t1">Logística &amp; Atrasos</text>
+  <text x="551" y="380" class="t2">domínio do Modelo M1</text>
+  <rect x="497" y="420" width="120" height="3" rx="1.5" fill="#E4572E"/>
+  <!-- card 3 -->
+  <circle cx="860" cy="360" r="18" fill="#F2B705" fill-opacity="0.16"/><text x="860" y="365" text-anchor="middle" class="badge" fill="#C99405">3</text>
+  <text x="892" y="358" class="t1">Satisfação do Cliente</text>
+  <text x="892" y="380" class="t2">domínio do Modelo M2</text>
+  <rect x="838" y="420" width="120" height="3" rx="1.5" fill="#F2B705"/>
+  <!-- card 4 -->
+  <circle cx="178" cy="514" r="18" fill="#0B5563" fill-opacity="0.12"/><text x="178" y="519" text-anchor="middle" class="badge" fill="#0B5563">4</text>
+  <text x="210" y="512" class="t1">Análise Geográfica</text>
+  <text x="210" y="534" class="t2">mapa, rotas e UFs</text>
+  <rect x="156" y="574" width="120" height="3" rx="1.5" fill="#0B5563"/>
+  <!-- card 5 -->
+  <circle cx="519" cy="514" r="18" fill="#2E933C" fill-opacity="0.12"/><text x="519" y="519" text-anchor="middle" class="badge" fill="#2E933C">5</text>
+  <text x="551" y="512" class="t1">Inteligência Preditiva</text>
+  <text x="551" y="534" class="t2">modelos ML + simulador M1</text>
+  <rect x="497" y="574" width="120" height="3" rx="1.5" fill="#2E933C"/>
+  <!-- card 6 -->
+  <circle cx="860" cy="514" r="18" fill="#9AA5A8" fill-opacity="0.18"/><text x="860" y="519" text-anchor="middle" class="badge" fill="#5A6B6F">6</text>
+  <text x="892" y="512" class="t1">Metodologia / Sobre</text>
+  <text x="892" y="534" class="t2">regras, estatística e glossário</text>
+  <rect x="838" y="574" width="120" height="3" rx="1.5" fill="#9AA5A8"/>
+
+  <text x="640" y="664" text-anchor="middle" class="t2">Fonte: Brazilian E-Commerce Public Dataset by Olist (Kaggle)  ·  Pipeline Medallion → PostgreSQL (Neon) → Power BI</text>
+</svg>

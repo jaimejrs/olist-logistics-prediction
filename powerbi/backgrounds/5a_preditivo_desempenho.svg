@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .ct{fill:#2B2B2B;font-weight:600;font-size:13px;}
+      .cs{fill:#9AA5A8;font-size:10px;}
+      .img{fill:#5A6B6F;font-size:11px;}
+      .ft{fill:#9AA5A8;font-size:10px;}
+    </style>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B5563" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+
+  <!-- HEADER -->
+  <rect width="1280" height="64" fill="#0B5563"/><rect y="62" width="1280" height="2" fill="#0CAA9E"/>
+  <text x="32" y="40" fill="#FFFFFF" font-weight="700" font-size="24">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="39" text-anchor="middle" fill="#FFFFFF" font-weight="600" font-size="18">Inteligência Preditiva</text>
+
+  <!-- TAB BAR -->
+  <rect x="24" y="80" width="380" height="34" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  <rect x="26" y="82" width="190" height="30" rx="7" fill="#0CAA9E"/>
+  <text x="121" y="102" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">Desempenho dos modelos</text>
+  <text x="312" y="102" text-anchor="middle" class="cs" font-size="12">Simulador M1</text>
+
+  <!-- M1 PANEL -->
+  <g filter="url(#sh)"><rect x="24" y="128" width="800" height="552" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <rect x="24" y="128" width="800" height="4" rx="2" fill="#E4572E"/>
+  <text x="44" y="160" class="ct" font-size="15">M1 — Atraso logístico</text>
+  <text x="44" y="180" class="cs">Alvo: flag_atraso · features pré-compra (anti-leakage)</text>
+  <!-- AUC stat strip -->
+  <rect x="44" y="196" width="760" height="56" rx="6" fill="#FBFCFC" stroke="#E6EBED"/>
+  <text x="64" y="222" fill="#E4572E" font-weight="700" font-size="22">AUC 0,78</text>
+  <text x="220" y="218" class="cs">CV 5-fold</text><text x="220" y="234" fill="#2B2B2B" font-size="13" font-weight="600">0,786 ± 0,005</text>
+  <text x="380" y="218" class="cs">Algoritmo</text><text x="380" y="234" fill="#2B2B2B" font-size="13" font-weight="600">XGBoost</text>
+  <text x="540" y="218" class="cs">Top feature</text><text x="540" y="234" fill="#2B2B2B" font-size="13" font-weight="600">prazo_prometido_dias</text>
+  <!-- 2x2 image placeholders -->
+  <rect x="44" y="266" width="372" height="195" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="230" y="367" text-anchor="middle" class="img">m1_avaliacao.png · ROC / PR</text>
+  <rect x="432" y="266" width="372" height="195" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="618" y="367" text-anchor="middle" class="img">m1_feature_importance.png</text>
+  <rect x="44" y="473" width="372" height="195" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="230" y="574" text-anchor="middle" class="img">m1_shap_summary.png</text>
+  <rect x="432" y="473" width="372" height="195" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="618" y="574" text-anchor="middle" class="img">m1_threshold.png · custo-sensível</text>
+
+  <!-- M2 PANEL -->
+  <g filter="url(#sh)"><rect x="848" y="128" width="408" height="552" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <rect x="848" y="128" width="408" height="4" rx="2" fill="#F2B705"/>
+  <text x="868" y="160" class="ct" font-size="15">M2 — Cliente insatisfeito</text>
+  <text x="868" y="180" class="cs">Alvo: flag_review_ruim (nota ≤ 3)</text>
+  <rect x="868" y="196" width="368" height="56" rx="6" fill="#FBFCFC" stroke="#E6EBED"/>
+  <text x="888" y="222" fill="#C99405" font-weight="700" font-size="22">AUC 0,71</text>
+  <text x="1040" y="218" class="cs">CV 5-fold</text><text x="1040" y="234" fill="#2B2B2B" font-size="13" font-weight="600">0,715 ± 0,004</text>
+  <rect x="868" y="266" width="368" height="195" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="1052" y="367" text-anchor="middle" class="img">m2_avaliacao.png</text>
+  <rect x="868" y="473" width="368" height="120" rx="6" fill="#FBFCFC" stroke="#E6EBED"/><text x="1052" y="537" text-anchor="middle" class="img">m2_feature_importance.png</text>
+  <!-- reading card -->
+  <rect x="868" y="605" width="368" height="63" rx="6" fill="#0CAA9E" fill-opacity="0.08"/>
+  <rect x="868" y="605" width="4" height="63" rx="2" fill="#0CAA9E"/>
+  <text x="882" y="628" fill="#0B5563" font-size="11" font-weight="600">Leitura de negócio</text>
+  <text x="882" y="646" class="cs" font-size="10">M2 é dominado por atraso_dias / flag_atraso —</text>
+  <text x="882" y="660" class="cs" font-size="10">confirma empiricamente a H1 (atraso → insatisfação).</text>
+
+  <!-- FOOTER -->
+  <rect x="0" y="696" width="1280" height="24" fill="#FFFFFF"/><line x1="0" y1="696" x2="1280" y2="696" stroke="#E6EBED"/>
+  <text x="24" y="711" class="ft">Modelos versionados em models/ · figuras em reports/ · scikit-learn / XGBoost / SHAP</text>
+  <text x="1256" y="711" text-anchor="end" class="ft">Treino: 96.203 pedidos · split estratificado · Atualizado em 27/06/2026</text>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .h{fill:#0B5563;font-weight:700;font-size:13px;}
+      .b{fill:#5A6B6F;font-size:11px;}
+      .cs{fill:#9AA5A8;font-size:10px;}
+      .ft{fill:#9AA5A8;font-size:10px;}
+      .n{fill:#0CAA9E;font-weight:700;font-size:13px;}
+    </style>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B5563" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+
+  <!-- HEADER -->
+  <rect width="1280" height="64" fill="#0B5563"/><rect y="62" width="1280" height="2" fill="#0CAA9E"/>
+  <text x="32" y="40" fill="#FFFFFF" font-weight="700" font-size="24">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="39" text-anchor="middle" fill="#FFFFFF" font-weight="600" font-size="18">Metodologia &amp; Sobre</text>
+
+  <!-- LEFT COLUMN -->
+  <g filter="url(#sh)">
+    <rect x="24" y="88" width="604" height="138" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="24" y="238" width="604" height="138" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="24" y="388" width="604" height="138" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="24" y="538" width="604" height="142" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+
+  <!-- 1 Problema -->
+  <text x="44" y="116" class="n">1</text><text x="66" y="116" class="h">Problema de negócio</text>
+  <text x="44" y="142" class="b">Quais fatores explicam atrasos e quedas de satisfação —</text>
+  <text x="44" y="160" class="b">e é possível prevê-los antes que aconteçam? Dois alvos:</text>
+  <text x="44" y="184" class="b">• <tspan fill="#E4572E" font-weight="600">M1</tspan> — flag_atraso: entregue após a data estimada.</text>
+  <text x="44" y="204" class="b">• <tspan fill="#C99405" font-weight="600">M2</tspan> — flag_review_ruim: nota da avaliação ≤ 3.</text>
+
+  <!-- 2 Fonte -->
+  <text x="44" y="266" class="n">2</text><text x="66" y="266" class="h">Fonte &amp; escopo</text>
+  <text x="44" y="292" class="b">Brazilian E-Commerce Public Dataset by Olist (Kaggle).</text>
+  <text x="44" y="312" class="b">Recorte: status = delivered · purchase_ts ≥ 2017-01-01.</text>
+  <text x="44" y="332" class="b">96.203 pedidos · 2017–2018 · grão = 1 pedido (order_id).</text>
+  <text x="44" y="356" class="cs">Agregações: itens e pagamentos somados ao nível do pedido.</text>
+
+  <!-- 3 Pipeline -->
+  <text x="44" y="416" class="n">3</text><text x="66" y="416" class="h">Pipeline Medallion</text>
+  <g transform="translate(44,438)">
+    <rect x="0" y="0" width="120" height="40" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="60" y="18" text-anchor="middle" class="b" font-weight="600">raw</text><text x="60" y="32" text-anchor="middle" class="cs">9 CSVs</text>
+    <text x="130" y="24" fill="#0CAA9E" font-size="16">→</text>
+    <rect x="148" y="0" width="120" height="40" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="208" y="18" text-anchor="middle" class="b" font-weight="600">staging</text><text x="208" y="32" text-anchor="middle" class="cs">tipos · dedupe</text>
+    <text x="278" y="24" fill="#0CAA9E" font-size="16">→</text>
+    <rect x="296" y="0" width="130" height="40" rx="6" fill="#0CAA9E" fill-opacity="0.12" stroke="#0CAA9E"/><text x="361" y="18" text-anchor="middle" class="b" font-weight="600">analytics</text><text x="361" y="32" text-anchor="middle" class="cs">fact · dim · marts</text>
+  </g>
+  <text x="44" y="504" class="cs">PostgreSQL (Neon serverless) · run_etl.py idempotente.</text>
+
+  <!-- 4 Estatística -->
+  <text x="44" y="566" class="n">4</text><text x="66" y="566" class="h">Resultados estatísticos</text>
+  <text x="44" y="590" class="b">H1 · Atraso reduz satisfação — Mann-Whitney p&lt;0,001 · <tspan fill="#2B2B2B" font-weight="600">δ=0,55 (grande)</tspan></text>
+  <text x="44" y="610" class="b">H2 · Frete varia por região — Kruskal-Wallis · <tspan fill="#2B2B2B" font-weight="600">η²=0,16 (grande)</tspan></text>
+  <text x="44" y="630" class="b">H3 · Pagamento × insatisfação — Qui² p=0,02 · <tspan fill="#2B2B2B" font-weight="600">V=0,01 (negligível)</tspan></text>
+  <text x="44" y="650" class="b">H4 · Frete × lead time — Spearman · <tspan fill="#2B2B2B" font-weight="600">ρ=0,38 (média)</tspan></text>
+  <text x="44" y="672" class="cs" font-style="italic">Lição: significância estatística ≠ relevância prática.</text>
+
+  <!-- RIGHT COLUMN -->
+  <g filter="url(#sh)">
+    <rect x="652" y="88" width="604" height="186" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="652" y="286" width="604" height="210" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="652" y="508" width="604" height="172" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+
+  <!-- 5 Modelos -->
+  <text x="672" y="116" class="n">5</text><text x="694" y="116" class="h">Modelos de Machine Learning</text>
+  <rect x="672" y="130" width="270" height="60" rx="6" fill="#FBFCFC" stroke="#E6EBED"/>
+  <text x="686" y="152" fill="#E4572E" font-weight="700" font-size="16">M1 · AUC 0,78</text><text x="686" y="172" class="cs">XGBoost · CV 0,786 ± 0,005 · atraso</text>
+  <rect x="966" y="130" width="270" height="60" rx="6" fill="#FBFCFC" stroke="#E6EBED"/>
+  <text x="980" y="152" fill="#C99405" font-weight="700" font-size="16">M2 · AUC 0,71</text><text x="980" y="172" class="cs">XGBoost · CV 0,715 ± 0,004 · review</text>
+  <text x="672" y="214" class="b">Anti-leakage: M1 usa só features conhecidas na compra.</text>
+  <text x="672" y="234" class="b">Avaliação: baseline, CV, tuning, threshold custo-sensível, SHAP.</text>
+  <text x="672" y="254" class="cs">Desbalanceamento tratado (scale_pos_weight / stratify); métricas: F1, Recall, ROC-AUC, PR-AUC.</text>
+
+  <!-- 6 Glossário -->
+  <text x="672" y="314" class="n">6</text><text x="694" y="314" class="h">Glossário de métricas</text>
+  <text x="672" y="340" class="b"><tspan fill="#2B2B2B" font-weight="600">Taxa de atraso</tspan> — % de pedidos entregues após o estimado.</text>
+  <text x="672" y="362" class="b"><tspan fill="#2B2B2B" font-weight="600">Lead time</tspan> — dias entre a compra e a entrega ao cliente.</text>
+  <text x="672" y="384" class="b"><tspan fill="#2B2B2B" font-weight="600">Prazo prometido</tspan> — estimado − compra (feature pré-compra).</text>
+  <text x="672" y="406" class="b"><tspan fill="#2B2B2B" font-weight="600">Atraso (dias)</tspan> — entregue − estimado (negativo = adiantado).</text>
+  <text x="672" y="428" class="b"><tspan fill="#2B2B2B" font-weight="600">% Review ruim</tspan> — % de avaliações com nota ≤ 3.</text>
+  <text x="672" y="450" class="b"><tspan fill="#2B2B2B" font-weight="600">Distância (km)</tspan> — Haversine entre CEPs seller e cliente.</text>
+  <text x="672" y="472" class="cs">Dicionário completo em docs/dicionario_dados.md.</text>
+
+  <!-- 7 Limitações -->
+  <text x="672" y="536" class="n">7</text><text x="694" y="536" class="h">Limitações &amp; próximos passos</text>
+  <text x="672" y="562" class="b">• Dados históricos (2017–2018); sem atualização em tempo real.</text>
+  <text x="672" y="584" class="b">• ~0,5% de distâncias imputadas (CEP ausente na base geográfica).</text>
+  <text x="672" y="606" class="b">• Reviews ausentes excluídos do M2 (grão com flag_review_ruim).</text>
+  <text x="672" y="628" class="b">• Próximo: deploy do simulador via API e monitoramento de drift.</text>
+  <text x="672" y="654" class="cs">Regras de negócio detalhadas em docs/regras_negocio.md.</text>
+
+  <!-- FOOTER -->
+  <rect x="0" y="696" width="1280" height="24" fill="#FFFFFF"/><line x1="0" y1="696" x2="1280" y2="696" stroke="#E6EBED"/>
+  <text x="24" y="711" class="ft">Olist Logistics Prediction · Engenharia de Dados + BI + Ciência de Dados</text>
+  <text x="1256" y="711" text-anchor="end" class="ft">Stack: Python · PostgreSQL (Neon) · scikit-learn · XGBoost · Power BI</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .ct{fill:#2B2B2B;font-weight:600;font-size:13px;}
+      .cs{fill:#9AA5A8;font-size:10px;}
+      .kpi{fill:#5A6B6F;font-weight:600;font-size:11px;letter-spacing:.3px;}
+      .flt{fill:#5A6B6F;font-weight:600;font-size:10px;letter-spacing:.4px;}
+      .ft{fill:#9AA5A8;font-size:10px;}
+    </style>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B5563" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+
+  <!-- HEADER -->
+  <rect width="1280" height="64" fill="#0B5563"/><rect y="62" width="1280" height="2" fill="#0CAA9E"/>
+  <text x="32" y="40" fill="#FFFFFF" font-weight="700" font-size="24">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="39" text-anchor="middle" fill="#FFFFFF" font-weight="600" font-size="18">Satisfação do Cliente</text>
+  <rect x="1060" y="18" width="188" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.12"/><text x="1078" y="36" fill="#FFFFFF" font-size="11">📅  Período: 2017 – 2018</text>
+
+  <!-- FILTER PANEL -->
+  <rect x="0" y="64" width="220" height="632" fill="#FFFFFF"/><line x1="220" y1="64" x2="220" y2="696" stroke="#E6EBED"/>
+  <polygon points="20,86 36,86 30,94 30,102 26,102 26,94" fill="#0CAA9E"/>
+  <text x="44" y="98" class="flt" font-size="12" letter-spacing="1">FILTROS</text><text x="160" y="98" class="cs" fill="#0CAA9E">Limpar</text>
+  <text x="20" y="124" class="flt">PERÍODO</text><rect x="20" y="130" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="178" class="flt">ANO / TRIMESTRE</text><rect x="20" y="184" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="232" class="flt">UF DO CLIENTE</text><rect x="20" y="238" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="286" class="flt">UF DO SELLER</text><rect x="20" y="292" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="340" class="flt">CATEGORIA</text><rect x="20" y="346" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="394" class="flt">TIPO DE PAGAMENTO</text><rect x="20" y="400" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="448" class="flt">SITUAÇÃO DA ENTREGA</text>
+  <rect x="20" y="454" width="87" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="63" y="471" text-anchor="middle" class="cs">No prazo</text>
+  <rect x="113" y="454" width="87" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="156" y="471" text-anchor="middle" class="cs">Atrasado</text>
+
+  <!-- KPI ROW (4) -->
+  <g filter="url(#sh)">
+    <rect x="244" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="501" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="758" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="1015" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <rect x="244" y="88" width="4" height="92" rx="2" fill="#F2B705"/><text x="262" y="110" class="kpi">NOTA MÉDIA</text>
+  <rect x="501" y="88" width="4" height="92" rx="2" fill="#E4572E"/><text x="519" y="110" class="kpi">% REVIEW RUIM (≤3)</text>
+  <rect x="758" y="88" width="4" height="92" rx="2" fill="#2E933C"/><text x="776" y="110" class="kpi">% PROMOTORES (NOTA 5)</text>
+  <rect x="1015" y="88" width="4" height="92" rx="2" fill="#0B5563"/><text x="1033" y="110" class="kpi">Nº DE REVIEWS</text>
+
+  <!-- ROW A 6+6 -->
+  <g filter="url(#sh)">
+    <rect x="244" y="196" width="498" height="190" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="758" y="196" width="498" height="190" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <text x="260" y="222" class="ct">Atraso × satisfação</text><text x="260" y="238" class="cs">Nota média e % review ruim (no prazo vs atrasado) — valida H1 · Q2</text>
+  <rect x="256" y="248" width="474" height="126" rx="4" fill="#FBFCFC"/>
+  <text x="774" y="222" class="ct">Distribuição de review por situação de entrega</text><text x="774" y="238" class="cs">Barras 100% empilhadas</text>
+  <rect x="770" y="248" width="474" height="126" rx="4" fill="#FBFCFC"/>
+
+  <!-- ROW B 6+6 -->
+  <g filter="url(#sh)">
+    <rect x="244" y="402" width="498" height="160" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="758" y="402" width="498" height="160" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <text x="260" y="428" class="ct">Satisfação por tipo de pagamento</text><text x="260" y="444" class="cs">Efeito NEGLIGÍVEL (Cramér's V=0,01) · Q8</text>
+  <rect x="256" y="454" width="474" height="100" rx="4" fill="#FBFCFC"/>
+  <text x="774" y="428" class="ct">Nota média por categoria (top / bottom)</text><text x="774" y="444" class="cs">Barras</text>
+  <rect x="770" y="454" width="474" height="100" rx="4" fill="#FBFCFC"/>
+
+  <!-- ROW C full + insight -->
+  <g filter="url(#sh)"><rect x="244" y="578" width="1012" height="102" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <rect x="244" y="578" width="4" height="102" rx="2" fill="#0CAA9E"/>
+  <text x="262" y="604" class="ct">Faixas de atraso × % review ruim — curva de impacto · Q9</text>
+  <text x="262" y="620" class="cs">Insight: atraso reduz satisfação — Cliff's δ=0,55 (efeito grande). Significância ≠ relevância.</text>
+  <rect x="262" y="630" width="982" height="42" rx="4" fill="#FBFCFC"/>
+
+  <!-- FOOTER -->
+  <rect x="0" y="696" width="1280" height="24" fill="#FFFFFF"/><line x1="0" y1="696" x2="1280" y2="696" stroke="#E6EBED"/>
+  <text x="24" y="711" class="ft">Fonte: Brazilian E-Commerce Public Dataset (Kaggle) · analytics.mart_customer_satisfaction</text>
+  <text x="1256" y="711" text-anchor="end" class="ft">Exibindo X reviews de 96.203 pedidos · Atualizado em 27/06/2026</text>
+</svg>

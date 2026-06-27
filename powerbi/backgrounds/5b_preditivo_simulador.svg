@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .ct{fill:#2B2B2B;font-weight:600;font-size:13px;}
+      .cs{fill:#9AA5A8;font-size:10px;}
+      .lbl{fill:#5A6B6F;font-weight:600;font-size:11px;}
+      .ft{fill:#9AA5A8;font-size:10px;}
+    </style>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B5563" flood-opacity="0.08"/>
+    </filter>
+    <linearGradient id="gauge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2E933C"/><stop offset="0.5" stop-color="#F2B705"/><stop offset="1" stop-color="#E4572E"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+
+  <!-- HEADER -->
+  <rect width="1280" height="64" fill="#0B5563"/><rect y="62" width="1280" height="2" fill="#0CAA9E"/>
+  <text x="32" y="40" fill="#FFFFFF" font-weight="700" font-size="24">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="39" text-anchor="middle" fill="#FFFFFF" font-weight="600" font-size="18">Inteligência Preditiva</text>
+
+  <!-- TAB BAR -->
+  <rect x="24" y="80" width="380" height="34" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  <text x="121" y="102" text-anchor="middle" class="cs" font-size="12">Desempenho dos modelos</text>
+  <rect x="216" y="82" width="186" height="30" rx="7" fill="#0CAA9E"/>
+  <text x="309" y="102" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">Simulador M1</text>
+
+  <!-- INPUT PANEL (5 col) -->
+  <g filter="url(#sh)"><rect x="24" y="128" width="503" height="552" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <rect x="24" y="128" width="503" height="4" rx="2" fill="#0B5563"/>
+  <text x="44" y="160" class="ct" font-size="15">Parâmetros do pedido</text>
+  <text x="44" y="180" class="cs">Preencha o cenário no momento da compra</text>
+
+  <!-- input rows -->
+  <text x="44" y="212" class="lbl">UF do seller</text><rect x="44" y="218" width="463" height="30" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="495" y="237" text-anchor="end" class="cs">▾</text>
+  <text x="44" y="268" class="lbl">UF do cliente</text><rect x="44" y="274" width="463" height="30" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="495" y="293" text-anchor="end" class="cs">▾</text>
+  <text x="44" y="324" class="lbl">Distância (km)</text><rect x="44" y="332" width="463" height="6" rx="3" fill="#E6EBED"/><circle cx="200" cy="335" r="8" fill="#0CAA9E"/>
+  <text x="44" y="368" class="lbl">Prazo prometido (dias)</text><rect x="44" y="376" width="463" height="6" rx="3" fill="#E6EBED"/><circle cx="260" cy="379" r="8" fill="#0CAA9E"/>
+  <text x="44" y="412" class="lbl">Frete (R$)</text><rect x="44" y="420" width="463" height="6" rx="3" fill="#E6EBED"/><circle cx="150" cy="423" r="8" fill="#0CAA9E"/>
+  <text x="44" y="456" class="lbl">Peso (g)</text><rect x="44" y="464" width="463" height="6" rx="3" fill="#E6EBED"/><circle cx="320" cy="467" r="8" fill="#0CAA9E"/>
+  <text x="44" y="504" class="lbl">Categoria</text><rect x="44" y="510" width="463" height="30" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="495" y="529" text-anchor="end" class="cs">▾</text>
+  <text x="44" y="560" class="lbl">Dia da semana</text><rect x="44" y="566" width="463" height="30" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="495" y="585" text-anchor="end" class="cs">▾</text>
+  <!-- button -->
+  <rect x="44" y="618" width="463" height="40" rx="8" fill="#0CAA9E"/><text x="275" y="643" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Calcular probabilidade</text>
+
+  <!-- RESULT PANEL (7 col) -->
+  <g filter="url(#sh)"><rect x="551" y="128" width="705" height="552" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <rect x="551" y="128" width="705" height="4" rx="2" fill="#E4572E"/>
+  <text x="571" y="160" class="ct" font-size="15">Probabilidade de atraso — Modelo M1</text>
+  <text x="571" y="180" class="cs">Predição ao vivo (Python visual carregando modelo1_atraso.pkl)</text>
+
+  <!-- gauge -->
+  <path d="M 660 400 A 180 180 0 0 1 1020 400" fill="none" stroke="#EEF2F3" stroke-width="26" stroke-linecap="round"/>
+  <path d="M 660 400 A 180 180 0 0 1 1020 400" fill="none" stroke="url(#gauge)" stroke-width="26" stroke-linecap="round" stroke-dasharray="565" stroke-dashoffset="350"/>
+  <text x="840" y="392" text-anchor="middle" fill="#2B2B2B" font-size="46" font-weight="700">— %</text>
+  <text x="840" y="420" text-anchor="middle" class="cs">probabilidade estimada</text>
+  <text x="648" y="430" text-anchor="middle" class="cs">0%</text><text x="1032" y="430" text-anchor="middle" class="cs">100%</text>
+
+  <!-- classification badge -->
+  <rect x="571" y="448" width="665" height="44" rx="8" fill="#E4572E" fill-opacity="0.08"/>
+  <rect x="571" y="448" width="4" height="44" rx="2" fill="#E4572E"/>
+  <text x="591" y="468" fill="#E4572E" font-size="13" font-weight="700">Classificação de risco</text>
+  <text x="591" y="484" class="cs">Threshold custo-sensível = 0,30 (modelo1_thresholds.pkl) · verde &lt; 0,30 · amarelo 0,30–0,50 · vermelho &gt; 0,50</text>
+
+  <!-- mini SHAP -->
+  <text x="571" y="520" class="ct">Fatores que mais pesam nesta predição</text><text x="571" y="536" class="cs">SHAP local</text>
+  <rect x="571" y="546" width="665" height="58" rx="6" fill="#FBFCFC" stroke="#E6EBED"/>
+
+  <!-- recommendation -->
+  <rect x="571" y="614" width="665" height="50" rx="8" fill="#0CAA9E" fill-opacity="0.08"/>
+  <rect x="571" y="614" width="4" height="50" rx="2" fill="#0CAA9E"/>
+  <text x="591" y="635" fill="#0B5563" font-size="12" font-weight="600">Recomendação operacional</text>
+  <text x="591" y="653" class="cs">Ação sugerida conforme a faixa de risco (ex.: priorizar despacho, revisar prazo prometido, transportadora alternativa).</text>
+
+  <!-- FOOTER -->
+  <rect x="0" y="696" width="1280" height="24" fill="#FFFFFF"/><line x1="0" y1="696" x2="1280" y2="696" stroke="#E6EBED"/>
+  <text x="24" y="711" class="ft">What-if parameters + slicers → Python visual (modelo1_atraso.pkl) · sem leakage</text>
+  <text x="1256" y="711" text-anchor="end" class="ft">Modelo M1 · XGBoost · AUC 0,78 · Atualizado em 27/06/2026</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;}
+      .ct{fill:#2B2B2B;font-weight:600;font-size:13px;}
+      .cs{fill:#9AA5A8;font-size:10px;}
+      .kpi{fill:#5A6B6F;font-weight:600;font-size:11px;letter-spacing:.3px;}
+      .flt{fill:#5A6B6F;font-weight:600;font-size:10px;letter-spacing:.4px;}
+      .ft{fill:#9AA5A8;font-size:10px;}
+    </style>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B5563" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#F5F7F8"/>
+
+  <!-- HEADER -->
+  <rect width="1280" height="64" fill="#0B5563"/><rect y="62" width="1280" height="2" fill="#0CAA9E"/>
+  <text x="32" y="40" fill="#FFFFFF" font-weight="700" font-size="24">olist<tspan fill="#0CAA9E">.</tspan></text>
+  <text x="640" y="39" text-anchor="middle" fill="#FFFFFF" font-weight="600" font-size="18">Logística &amp; Atrasos</text>
+  <rect x="1060" y="18" width="188" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.12"/><text x="1078" y="36" fill="#FFFFFF" font-size="11">📅  Período: 2017 – 2018</text>
+
+  <!-- FILTER PANEL -->
+  <rect x="0" y="64" width="220" height="632" fill="#FFFFFF"/><line x1="220" y1="64" x2="220" y2="696" stroke="#E6EBED"/>
+  <polygon points="20,86 36,86 30,94 30,102 26,102 26,94" fill="#0CAA9E"/>
+  <text x="44" y="98" class="flt" font-size="12" letter-spacing="1">FILTROS</text><text x="160" y="98" class="cs" fill="#0CAA9E">Limpar</text>
+  <text x="20" y="124" class="flt">PERÍODO</text><rect x="20" y="130" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="178" class="flt">ANO / TRIMESTRE</text><rect x="20" y="184" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="232" class="flt">UF DO CLIENTE</text><rect x="20" y="238" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="286" class="flt">UF DO SELLER</text><rect x="20" y="292" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="340" class="flt">CATEGORIA</text><rect x="20" y="346" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="394" class="flt">TIPO DE PAGAMENTO</text><rect x="20" y="400" width="180" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/>
+  <text x="20" y="448" class="flt">SITUAÇÃO DA ENTREGA</text>
+  <rect x="20" y="454" width="87" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="63" y="471" text-anchor="middle" class="cs">No prazo</text>
+  <rect x="113" y="454" width="87" height="26" rx="6" fill="#F5F7F8" stroke="#E6EBED"/><text x="156" y="471" text-anchor="middle" class="cs">Atrasado</text>
+
+  <!-- KPI ROW (4 cards) -->
+  <g filter="url(#sh)">
+    <rect x="244" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="501" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="758" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="1015" y="88" width="241" height="92" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <rect x="244" y="88" width="4" height="92" rx="2" fill="#E4572E"/><text x="262" y="110" class="kpi">TAXA DE ATRASO</text>
+  <rect x="501" y="88" width="4" height="92" rx="2" fill="#E4572E"/><text x="519" y="110" class="kpi">ATRASO MÉDIO (DIAS)</text>
+  <rect x="758" y="88" width="4" height="92" rx="2" fill="#0CAA9E"/><text x="776" y="110" class="kpi">LEAD TIME MÉDIO</text>
+  <rect x="1015" y="88" width="4" height="92" rx="2" fill="#0B5563"/><text x="1033" y="110" class="kpi">PRAZO PROMETIDO MÉDIO</text>
+
+  <!-- ROW A: 7col + 5col -->
+  <g filter="url(#sh)">
+    <rect x="244" y="196" width="581" height="210" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="841" y="196" width="415" height="210" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <text x="260" y="222" class="ct">Faixas de atraso × nota média</text><text x="260" y="238" class="cs">Efeito-limiar: a nota desaba a partir de “atrasado até 7 dias” · Q9</text>
+  <rect x="256" y="248" width="557" height="146" rx="4" fill="#FBFCFC"/>
+  <text x="857" y="222" class="ct">Perfil: atrasado vs no prazo</text><text x="857" y="238" class="cs">Ticket · frete · peso · itens · parcelas · lead time · Q6</text>
+  <rect x="853" y="248" width="391" height="146" rx="4" fill="#FBFCFC"/>
+
+  <!-- ROW B: 6col + 6col -->
+  <g filter="url(#sh)">
+    <rect x="244" y="422" width="498" height="120" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+    <rect x="758" y="422" width="498" height="120" rx="8" fill="#FFFFFF" stroke="#E6EBED"/>
+  </g>
+  <text x="260" y="448" class="ct">Taxa de atraso por dia da semana</text><text x="260" y="464" class="cs">Feature temporal · Q7</text>
+  <rect x="256" y="472" width="474" height="62" rx="4" fill="#FBFCFC"/>
+  <text x="774" y="448" class="ct">Frete × lead time (dispersão)</text><text x="774" y="464" class="cs">cor = atraso · ρ=0,38 · H4</text>
+  <rect x="770" y="472" width="474" height="62" rx="4" fill="#FBFCFC"/>
+
+  <!-- ROW C: full -->
+  <g filter="url(#sh)"><rect x="244" y="558" width="1012" height="122" rx="8" fill="#FFFFFF" stroke="#E6EBED"/></g>
+  <text x="260" y="584" class="ct">Pedidos com múltiplos sellers × atraso  +  categorias problemáticas</text>
+  <text x="260" y="600" class="cs">Coordenação multi-seller como fator de risco · Q12 / Q4</text>
+  <rect x="256" y="610" width="988" height="62" rx="4" fill="#FBFCFC"/>
+
+  <!-- FOOTER -->
+  <rect x="0" y="696" width="1280" height="24" fill="#FFFFFF"/><line x1="0" y1="696" x2="1280" y2="696" stroke="#E6EBED"/>
+  <text x="24" y="711" class="ft">Fonte: Brazilian E-Commerce Public Dataset (Kaggle) · analytics.fact_orders</text>
+  <text x="1256" y="711" text-anchor="end" class="ft">Exibindo X de 96.203 pedidos · Atualizado em 27/06/2026</text>
+</svg>
