@@ -11,8 +11,8 @@ WITH itens AS (
 pag AS (
     SELECT order_id,
            sum(payment_value)      AS valor_pago,
-           max(payment_installments) AS max_parcelas,
-           max(payment_type)       AS tipo_pagamento  -- simplificação
+           (array_agg(payment_installments ORDER BY payment_value DESC))[1] AS max_parcelas,
+           (array_agg(payment_type       ORDER BY payment_value DESC))[1] AS tipo_pagamento
     FROM raw.order_payments
     GROUP BY order_id
 )
@@ -31,7 +31,8 @@ SELECT
     EXTRACT(EPOCH FROM (o.delivered_ts - o.purchase_ts))/86400.0 AS lead_time_dias,
     EXTRACT(EPOCH FROM (o.delivered_ts - o.estimated_ts))/86400.0 AS atraso_dias,
     CASE WHEN o.delivered_ts > o.estimated_ts THEN 1 ELSE 0 END   AS flag_atraso,
-    CASE WHEN r.review_score <= 3 THEN 1 ELSE 0 END               AS flag_review_ruim
+    CASE WHEN r.review_score IS NULL THEN NULL
+         WHEN r.review_score <= 2 THEN 1 ELSE 0 END               AS flag_review_ruim  -- notas 1-2 = ruim; NULL = sem avaliação
 FROM staging.orders o
 JOIN raw.customers c ON c.customer_id = o.customer_id
 LEFT JOIN itens i ON i.order_id = o.order_id
