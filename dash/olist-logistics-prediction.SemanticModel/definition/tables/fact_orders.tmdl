@@ -1,0 +1,234 @@
+table fact_orders
+	lineageTag: 3ec02f11-8133-40c6-b8ce-043212b4e9cb
+
+	/// Identificador único do pedido (chave do grão: 1 linha = 1 pedido entregue).
+	column order_id
+		dataType: string
+		lineageTag: cb59cb2c-b217-4c01-9898-38c3da61ef49
+		summarizeBy: none
+		sourceColumn: order_id
+
+	/// Identificador único do cliente real (base de recompra).
+	column customer_unique_id
+		dataType: string
+		lineageTag: df5d3b11-80b2-4f59-a030-127ce3d9bdc9
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+	/// UF de destino (cliente).
+	column uf_cliente
+		dataType: string
+		lineageTag: e2e79c18-5d2e-4bdb-a1e0-e936eb3fd5b7
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: uf_cliente
+
+	/// UF de origem (seller do item principal).
+	column uf_seller
+		dataType: string
+		lineageTag: 258bbba2-78a6-4804-83e6-0ced38ce2cbc
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: uf_seller
+
+	/// Distância Haversine seller -> cliente (km).
+	column distancia_km
+		dataType: double
+		formatString: #,0.0
+		lineageTag: ddc95211-cd50-4c9c-87f1-3a95dc46c752
+		summarizeBy: average
+		sourceColumn: distancia_km
+
+	/// Categoria (inglês) do item de maior valor do pedido.
+	column categoria_principal
+		dataType: string
+		lineageTag: ce9de3c3-427e-4947-8dc4-e00c22d7eaf3
+		summarizeBy: none
+		sourceColumn: categoria_principal
+
+	/// Data/hora da compra.
+	column purchase_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5b3fe1dd-cd16-4c7a-a593-62d706547920
+		summarizeBy: none
+		sourceColumn: purchase_ts
+
+	column ano_compra
+		dataType: int64
+		lineageTag: ea0718b9-3a97-4bfe-8deb-339ac4547097
+		summarizeBy: none
+		sourceColumn: ano_compra
+
+	column mes_compra
+		dataType: int64
+		lineageTag: f6856fb9-8b1b-4ef9-bcf4-d01b2947479f
+		summarizeBy: none
+		sourceColumn: mes_compra
+
+	column dia_semana_compra
+		dataType: int64
+		lineageTag: a54c057a-6b16-40a9-8189-49254e399fe3
+		summarizeBy: none
+		sourceColumn: dia_semana_compra
+
+	/// Prazo prometido no checkout (estimado - compra), em dias. Feature pré-compra.
+	column prazo_prometido_dias
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 0b8d89a2-00e4-42a1-a872-7b7c7e3bd679
+		summarizeBy: average
+		sourceColumn: prazo_prometido_dias
+
+	column estimated_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 73580459-eb39-4649-9259-be80ef853283
+		summarizeBy: none
+		sourceColumn: estimated_ts
+
+	column delivered_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: af6dfafd-463d-42b1-81e7-eb1e9d7d5937
+		summarizeBy: none
+		sourceColumn: delivered_ts
+
+	column qtd_itens
+		dataType: int64
+		lineageTag: 42fdc2a9-caa1-4899-a662-20bb74f6b471
+		summarizeBy: sum
+		sourceColumn: qtd_itens
+
+	column qtd_sellers
+		dataType: int64
+		lineageTag: 68a9c6bc-d81c-4395-880a-433c5aa1af89
+		summarizeBy: sum
+		sourceColumn: qtd_sellers
+
+	column valor_produtos
+		dataType: double
+		formatString: \R$ #,0.00
+		lineageTag: 6ec8f07e-71b9-4fa2-8446-5a2a4d448cf0
+		summarizeBy: sum
+		sourceColumn: valor_produtos
+
+	column frete_total
+		dataType: double
+		formatString: \R$ #,0.00
+		lineageTag: 076f1627-7235-4843-8aa0-55ef129d9f12
+		summarizeBy: sum
+		sourceColumn: frete_total
+
+	column peso_total_g
+		dataType: double
+		formatString: #,0
+		lineageTag: 7899f453-56c1-491b-ab24-270645edbaea
+		summarizeBy: average
+		sourceColumn: peso_total_g
+
+	column valor_pago
+		dataType: double
+		formatString: \R$ #,0.00
+		lineageTag: 8fc27305-5e72-4a55-b955-483d7c6cb833
+		summarizeBy: sum
+		sourceColumn: valor_pago
+
+	column max_parcelas
+		dataType: int64
+		lineageTag: 934b9200-b52b-4632-a9ee-cf4210d31ce1
+		summarizeBy: average
+		sourceColumn: max_parcelas
+
+	column tipo_pagamento
+		dataType: string
+		lineageTag: a1029fea-fb3e-4220-b97b-18990dc02d73
+		summarizeBy: none
+		sourceColumn: tipo_pagamento
+
+	column review_score
+		dataType: int64
+		lineageTag: 9f399787-b7fa-4298-ab80-04564d6e764b
+		summarizeBy: none
+		sourceColumn: review_score
+
+	column lead_time_dias
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 2ca74842-388b-4acb-a6c8-04ad85e703dd
+		summarizeBy: average
+		sourceColumn: lead_time_dias
+
+	column atraso_dias
+		dataType: double
+		formatString: #,0.0
+		lineageTag: dfd4ded0-de41-49b0-af74-37b4e8a511a0
+		summarizeBy: average
+		sourceColumn: atraso_dias
+
+	/// Alvo M1. 1 = entregue após o estimado.
+	column flag_atraso
+		dataType: int64
+		lineageTag: 766ed43f-88a9-423c-b829-49639988a6c1
+		summarizeBy: none
+		sourceColumn: flag_atraso
+
+	/// Alvo M2. 1 = review_score <= 3 (nulo se sem review).
+	column flag_review_ruim
+		dataType: int64
+		lineageTag: 08938975-43ff-44a1-ae25-844d2873cbd2
+		summarizeBy: none
+		sourceColumn: flag_review_ruim
+
+	/// Data da compra (sem hora) para relacionamento com dim_date.
+	column data_compra = DATE(YEAR(fact_orders[purchase_ts]), MONTH(fact_orders[purchase_ts]), DAY(fact_orders[purchase_ts]))
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 2b5ca3a8-ff54-44ba-b5fe-fd3f65437148
+		summarizeBy: none
+
+	/// Situação da entrega (rótulo do flag_atraso).
+	column situacao_entrega = IF(fact_orders[flag_atraso] = 1, "Atrasado", "No prazo")
+		dataType: string
+		lineageTag: 149906e2-08ae-4c8b-ae35-421b42cd9fb9
+		summarizeBy: none
+
+	/// Faixa de atraso (Q9) — base do efeito-limiar.
+	column faixa_atraso = SWITCH(TRUE(), fact_orders[atraso_dias] <= -15, "Muito adiantado (>15d)", fact_orders[atraso_dias] <= -7, "Adiantado (8-15d)", fact_orders[atraso_dias] <= -1, "Levemente adiantado (2-7d)", fact_orders[atraso_dias] <= 0, "No prazo (0-1d)", fact_orders[atraso_dias] <= 7, "Atrasado até 7 dias", fact_orders[atraso_dias] <= 15, "Atrasado 8-15 dias", "Muito atrasado (>15d)")
+		dataType: string
+		lineageTag: b6fd0f46-b6ac-4ecc-9624-f405ddda5ea2
+		summarizeBy: none
+		sortByColumn: faixa_atraso_ord
+
+	column faixa_atraso_ord = SWITCH(TRUE(), fact_orders[atraso_dias] <= -15, 1, fact_orders[atraso_dias] <= -7, 2, fact_orders[atraso_dias] <= -1, 3, fact_orders[atraso_dias] <= 0, 4, fact_orders[atraso_dias] <= 7, 5, fact_orders[atraso_dias] <= 15, 6, 7)
+		dataType: int64
+		isHidden
+		lineageTag: 0cea602e-8db7-43a5-8bc8-ffeaa74a660b
+		summarizeBy: none
+
+	/// Perfil de sellers no pedido (Q12).
+	column perfil_seller = SWITCH(TRUE(), fact_orders[qtd_sellers] = 1, "1 seller", fact_orders[qtd_sellers] = 2, "2 sellers", "3+ sellers")
+		dataType: string
+		lineageTag: ca3cc252-80bb-40bf-8c56-74342de3ecb6
+		summarizeBy: none
+
+	/// Nome do dia da semana da compra (Q7).
+	column dia_semana_nome = SWITCH(fact_orders[dia_semana_compra], 0, "Dom", 1, "Seg", 2, "Ter", 3, "Qua", 4, "Qui", 5, "Sex", 6, "Sáb")
+		dataType: string
+		lineageTag: 5163c1d8-296d-43a0-a69c-e8226cf166e5
+		summarizeBy: none
+		sortByColumn: dia_semana_compra
+
+	/// Rota seller -> cliente (Q10).
+	column rota = fact_orders[uf_seller] & " → " & fact_orders[uf_cliente]
+		dataType: string
+		lineageTag: 64284671-ad28-48c4-8014-d2b45245d61c
+		summarizeBy: none
+
+	partition fact_orders = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="fact_orders"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+

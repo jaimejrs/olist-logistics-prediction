@@ -6,9 +6,20 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation __PBI_TimeIntelligenceEnabled = 1
+annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["PG_Server","PG_Database","fact_orders","dim_date"]
+
+ref table dim_date
+ref table fact_orders
+ref table Metas
+ref table 'Param Distância'
+ref table 'Param Frete'
+ref table 'Param Peso'
+ref table 'Param Prazo'
+ref table _Medidas
 
 ref cultureInfo pt-BR
 

@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
-    "0b6bde9acf1f61c7641d"
+    "p_capa",
+    "p_exec",
+    "p_log",
+    "p_sat",
+    "p_geo",
+    "p_mlperf",
+    "p_sim",
+    "p_metod"
   ],
-  "activePageName": "0b6bde9acf1f61c7641d"
+  "activePageName": "p_exec"
 }

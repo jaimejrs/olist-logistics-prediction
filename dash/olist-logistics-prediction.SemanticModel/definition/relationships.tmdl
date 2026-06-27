@@ -1,0 +1,4 @@
+relationship rel_dimdate_factorders
+	fromColumn: fact_orders.data_compra
+	toColumn: dim_date.data
+

@@ -1,0 +1,51 @@
+table Metas
+	lineageTag: 4d0281d6-263a-4d80-894b-fd3c929a988b
+
+	column meta_atraso_verde
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 36c100dd-b2a7-4b0a-965c-fd341569b13e
+		summarizeBy: none
+		sourceColumn: [meta_atraso_verde]
+
+	column meta_atraso_amarelo
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6bce8516-9de5-403a-83d8-fb9a995ce7cb
+		summarizeBy: none
+		sourceColumn: [meta_atraso_amarelo]
+
+	column meta_review_verde
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fe42a9b4-80d4-40c7-ab3f-b684004b3680
+		summarizeBy: none
+		sourceColumn: [meta_review_verde]
+
+	column meta_review_amarelo
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 744c1edd-3231-4c01-bc27-b21d51c2a4cc
+		summarizeBy: none
+		sourceColumn: [meta_review_amarelo]
+
+	column meta_nota_verde
+		dataType: double
+		formatString: 0.00
+		lineageTag: dd88d8d6-03cf-4c13-9bea-e0d4cb94b1c6
+		summarizeBy: none
+		sourceColumn: [meta_nota_verde]
+
+	column meta_nota_amarelo
+		dataType: double
+		formatString: 0.00
+		lineageTag: f0942834-7bb5-4d3a-908e-5b45127faa18
+		summarizeBy: none
+		sourceColumn: [meta_nota_amarelo]
+
+	partition Metas = calculated
+		mode: import
+		source = ROW("meta_atraso_verde", 0.08, "meta_atraso_amarelo", 0.12, "meta_review_verde", 0.25, "meta_review_amarelo", 0.30, "meta_nota_verde", 4.2, "meta_nota_amarelo", 3.8)
+
+	annotation PBI_Id = Metas
+

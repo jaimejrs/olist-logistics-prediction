@@ -1,0 +1,12 @@
+/// Host do PostgreSQL (Neon).
+expression PG_Server = "ep-wispy-block-acmogk78-pooler.sa-east-1.aws.neon.tech" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6ce22459-797e-46a2-9c44-61eb1adaafca
+
+	annotation PBI_ResultType = Text
+
+/// Nome do banco de dados no Neon/PostgreSQL.
+expression PG_Database = "neondb" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 38d3765a-566a-467e-be16-6c30e5254bc6
+
+	annotation PBI_ResultType = Text
+

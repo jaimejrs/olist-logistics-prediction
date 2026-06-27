@@ -1,0 +1,121 @@
+table _Medidas
+	lineageTag: 1325ee58-bb96-405f-af8a-d710d0573cc2
+
+	measure Pedidos = COUNTROWS(fact_orders)
+		formatString: #,0
+		lineageTag: f0c60522-5bf3-4c48-9f54-dd301074a809
+
+	measure 'Taxa Atraso %' = DIVIDE(SUM(fact_orders[flag_atraso]), COUNTROWS(fact_orders))
+		formatString: 0.0%
+		lineageTag: 4475fa15-f075-49b7-9c80-2a51ff867834
+
+	measure 'Nota Média' = AVERAGE(fact_orders[review_score])
+		formatString: 0.00
+		lineageTag: 8642f203-7fae-42fd-8260-a9bd682d832d
+
+	measure '% Review Ruim' = DIVIDE(CALCULATE(COUNTROWS(fact_orders), fact_orders[flag_review_ruim] = 1), CALCULATE(COUNTROWS(fact_orders), NOT(ISBLANK(fact_orders[flag_review_ruim]))))
+		formatString: 0.0%
+		lineageTag: 5c106dd5-20b9-4232-9067-c9fc1510c65d
+
+	measure '% Promotores' = DIVIDE(CALCULATE(COUNTROWS(fact_orders), fact_orders[review_score] = 5), CALCULATE(COUNTROWS(fact_orders), NOT(ISBLANK(fact_orders[review_score]))))
+		formatString: 0.0%
+		lineageTag: c872b08d-2910-4b04-8097-d4e1a31192db
+
+	measure 'Nº de Reviews' = CALCULATE(COUNTROWS(fact_orders), NOT(ISBLANK(fact_orders[flag_review_ruim])))
+		formatString: #,0
+		lineageTag: d46b373f-af4c-41f8-9fca-f9635afe8624
+
+	measure 'Lead Time Médio' = AVERAGE(fact_orders[lead_time_dias])
+		formatString: 0.0
+		lineageTag: 83263322-16ed-4c62-951a-205c215912b0
+
+	measure 'Atraso Médio Dias' = CALCULATE(AVERAGE(fact_orders[atraso_dias]), fact_orders[flag_atraso] = 1)
+		formatString: 0.0
+		lineageTag: b17c82c5-875b-4436-9a4b-3a6827074df9
+
+	measure 'Prazo Prometido Médio' = AVERAGE(fact_orders[prazo_prometido_dias])
+		formatString: 0.0
+		lineageTag: 1455136a-c34c-475a-a5a2-38925702565b
+
+	measure 'Ticket Médio' = AVERAGE(fact_orders[valor_pago])
+		formatString: \R$ #,0.00
+		lineageTag: d74216b1-7593-4fb9-8608-4e0ea1e226c6
+
+	measure 'Frete Médio' = AVERAGE(fact_orders[frete_total])
+		formatString: \R$ #,0.00
+		lineageTag: a36fe74b-0324-4da7-b8dc-10d77686f5eb
+
+	measure 'Peso Médio (g)' = AVERAGE(fact_orders[peso_total_g])
+		formatString: #,0
+		lineageTag: a93ef6f9-4ba9-45f1-bf25-04f4c4224a91
+
+	measure 'Itens Médio' = AVERAGE(fact_orders[qtd_itens])
+		formatString: 0.00
+		lineageTag: 2a442c7d-7171-4fd1-b5e9-751e6c5b9135
+
+	measure 'Parcelas Média' = AVERAGE(fact_orders[max_parcelas])
+		formatString: 0.0
+		lineageTag: e5b9efa8-8faf-472d-9389-5e3d37de3601
+
+	measure 'Distância Média (km)' = AVERAGE(fact_orders[distancia_km])
+		formatString: #,0
+		lineageTag: 62971e45-38ac-4d1f-b496-5213323a524d
+
+	measure 'Taxa Atraso Trim Ant' = CALCULATE([Taxa Atraso %], DATEADD(dim_date[data], -1, QUARTER))
+		formatString: 0.0%
+		lineageTag: 5b48244f-fe74-4ae1-9ef9-98583a0d66a0
+
+	measure 'Δ Taxa Atraso vs Trim' = [Taxa Atraso %] - [Taxa Atraso Trim Ant]
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: b9e719ab-4a3f-4491-affb-1ac7dfe3ad6c
+
+	measure 'Nota Média Trim Ant' = CALCULATE([Nota Média], DATEADD(dim_date[data], -1, QUARTER))
+		formatString: 0.00
+		lineageTag: a2b61a64-de06-4e05-b95d-8d476cd49235
+
+	measure 'Δ Nota vs Trim' = [Nota Média] - [Nota Média Trim Ant]
+		formatString: +0.00;-0.00;0.00
+		lineageTag: 73dbf73b-1448-403e-8a13-4feff11d3393
+
+	measure 'Cor Taxa Atraso' = SWITCH(TRUE(), [Taxa Atraso %] <= MAX(Metas[meta_atraso_verde]), "#2E933C", [Taxa Atraso %] <= MAX(Metas[meta_atraso_amarelo]), "#F2B705", "#E4572E")
+		lineageTag: 0256a0ab-114b-41aa-ae32-b2fd33c59b29
+
+	measure 'Cor Review Ruim' = SWITCH(TRUE(), [% Review Ruim] <= MAX(Metas[meta_review_verde]), "#2E933C", [% Review Ruim] <= MAX(Metas[meta_review_amarelo]), "#F2B705", "#E4572E")
+		lineageTag: e8420892-2e67-423f-b672-ca9446b366f2
+
+	measure 'Cor Nota Média' = SWITCH(TRUE(), [Nota Média] >= MAX(Metas[meta_nota_verde]), "#2E933C", [Nota Média] >= MAX(Metas[meta_nota_amarelo]), "#F2B705", "#E4572E")
+		lineageTag: 969d1934-3baf-436f-a82f-2169e8523818
+
+	measure 'Pedidos Exibidos Texto' = "Exibindo " & FORMAT([Pedidos], "#,0") & " de 96.203 pedidos"
+		lineageTag: a6e33a3a-fedb-4ea9-bd36-495360e4f1b6
+
+	measure 'Sim Score Linear' = -2.2 + 0.045 * 'Param Distância'[Param Distância Valor] - 0.090 * 'Param Prazo'[Param Prazo Valor] + 0.010 * 'Param Frete'[Param Frete Valor] + 0.00010 * 'Param Peso'[Param Peso Valor]
+		formatString: 0.00
+		lineageTag: 2dd64bfd-a307-471f-8fa1-350371593eb3
+
+	measure 'Sim Probabilidade Atraso' = DIVIDE(1, 1 + EXP(-[Sim Score Linear]))
+		formatString: 0.0%
+		lineageTag: 4c83c1f0-02b6-4ef0-ad44-fae5abdd3657
+
+	measure 'Sim Classificação' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "BAIXO RISCO", [Sim Probabilidade Atraso] <= 0.50, "RISCO MODERADO", "ALTO RISCO")
+		lineageTag: 99cf1e52-2c7a-43f7-a4a1-4fbe0996c22f
+
+	measure 'Sim Cor Risco' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "#2E933C", [Sim Probabilidade Atraso] <= 0.50, "#F2B705", "#E4572E")
+		lineageTag: b9b943b8-6a5a-4860-a36c-bb41d9fab3b9
+
+	measure 'Sim Recomendação' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "Fluxo normal de despacho. Risco dentro da meta.", [Sim Probabilidade Atraso] <= 0.50, "Priorizar despacho e revisar o prazo prometido ao cliente.", "Acionar transportadora alternativa e comunicar prazo realista ao cliente.")
+		lineageTag: c358ab68-8178-4262-bb09-589bc20f7e72
+
+	column Value
+		dataType: int64
+		isHidden
+		lineageTag: f5f50787-08cf-4808-ae2c-3f506d258997
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition _Medidas = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_Id = _Medidas
+

@@ -1,0 +1,100 @@
+table dim_date
+	lineageTag: 7e579c3d-5f14-4cf3-968d-ab69a484a53f
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 890c66d8-4287-4553-9c0a-b9cfdf1fa4e3
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		lineageTag: 988ecfa3-b1d5-4ab7-9bb9-06a38e92924f
+		summarizeBy: none
+		sourceColumn: ano
+
+	column trimestre
+		dataType: int64
+		lineageTag: 13276629-5ee2-43b7-a27b-503d38985110
+		summarizeBy: none
+		sourceColumn: trimestre
+
+	column mes
+		dataType: int64
+		lineageTag: 4747e761-6e52-4541-a8b9-71e792e971c2
+		summarizeBy: none
+		sourceColumn: mes
+
+	column nome_mes
+		dataType: string
+		lineageTag: efca051c-0e23-49e9-b27e-ab0814389bf2
+		summarizeBy: none
+		sourceColumn: nome_mes
+
+	column semana_ano
+		dataType: int64
+		lineageTag: 158f4b8e-c0c7-4602-8977-63102b43c09c
+		summarizeBy: none
+		sourceColumn: semana_ano
+
+	column dia_semana
+		dataType: int64
+		lineageTag: 4593b9bb-5290-4bce-b517-28cbf734ab9b
+		summarizeBy: none
+		sourceColumn: dia_semana
+
+	column nome_dia_semana
+		dataType: string
+		lineageTag: 0bdc19c6-d6cf-4c5b-93f1-bb4377f18c37
+		summarizeBy: none
+		sourceColumn: nome_dia_semana
+
+	column dia
+		dataType: int64
+		lineageTag: 2c9cd225-7bae-4ff9-9c89-1aff8e55dcd6
+		summarizeBy: none
+		sourceColumn: dia
+
+	column fim_de_semana
+		dataType: boolean
+		lineageTag: c70e585e-6fa4-4348-81c0-43a35f900e1c
+		summarizeBy: none
+		sourceColumn: fim_de_semana
+
+	/// Ano-Mês para ordenação e eixos temporais (ex.: 2017-08).
+	column ano_mes = FORMAT(dim_date[data], "YYYY-MM")
+		dataType: string
+		lineageTag: 449d5283-3f48-4bbe-8e71-5436dde09d0d
+		summarizeBy: none
+		sortByColumn: ano_mes_ord
+
+	column ano_mes_ord = dim_date[ano] * 100 + dim_date[mes]
+		dataType: int64
+		isHidden
+		lineageTag: 3bfaea6a-11a6-433f-8d3f-9f5d16366871
+		summarizeBy: none
+
+	/// Rótulo de trimestre (ex.: 2018-T2).
+	column ano_trimestre = dim_date[ano] & "-T" & dim_date[trimestre]
+		dataType: string
+		lineageTag: b41e9b5b-c9b8-4673-8216-d1524805694a
+		summarizeBy: none
+		sortByColumn: ano_trimestre_ord
+
+	column ano_trimestre_ord = dim_date[ano] * 10 + dim_date[trimestre]
+		dataType: int64
+		isHidden
+		lineageTag: e7d3a090-47ec-4c81-9a09-2d63b6e257e4
+		summarizeBy: none
+
+	partition dim_date = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="dim_date"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+
