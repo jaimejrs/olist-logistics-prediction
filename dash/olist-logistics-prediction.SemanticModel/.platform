@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "olist-logistics-prediction"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b10bcba6-4c37-4c3e-9436-c3e7cb214d08"
+  }
+}
