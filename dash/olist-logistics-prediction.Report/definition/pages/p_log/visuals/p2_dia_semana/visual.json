@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_dia_semana",
   "position": {
-    "x": 256,
-    "y": 474,
-    "z": 12000,
-    "height": 58,
-    "width": 474,
-    "tabOrder": 12000
+    "x": 243.63636363636363,
+    "y": 420.90909090909088,
+    "z": 11000,
+    "height": 261.81818181818181,
+    "width": 271.81818181818181,
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "columnChart",
@@ -27,8 +27,9 @@
                 }
               },
               "queryRef": "fact_orders.dia_semana_nome",
-              "nativeQueryRef": "dia_semana_nome",
-              "active": true
+              "nativeQueryRef": "Dia da Semana",
+              "active": true,
+              "displayName": "Dia da Semana"
             }
           ]
         },
@@ -87,6 +88,21 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Taxa de atraso por dia da semana'"
+                }
+              }
+            }
           }
         }
       ]

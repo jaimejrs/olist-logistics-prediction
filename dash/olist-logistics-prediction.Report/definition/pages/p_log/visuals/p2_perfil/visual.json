@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_perfil",
   "position": {
-    "x": 853,
-    "y": 250,
-    "z": 11000,
-    "height": 142,
-    "width": 391,
-    "tabOrder": 11000
+    "x": 851.66666666666674,
+    "y": 196.66666666666669,
+    "z": 10000,
+    "height": 122.5,
+    "width": 401.66666666666669,
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "tableEx",
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "fact_orders.situacao_entrega",
-              "nativeQueryRef": "situacao_entrega"
+              "nativeQueryRef": "Status",
+              "displayName": "Status"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "_Medidas.Ticket Médio",
-              "nativeQueryRef": "Ticket Médio"
+              "nativeQueryRef": "Ticket",
+              "displayName": "Ticket"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "_Medidas.Frete Médio",
-              "nativeQueryRef": "Frete Médio"
+              "nativeQueryRef": "Frete",
+              "displayName": "Frete"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "_Medidas.Itens Médio",
-              "nativeQueryRef": "Itens Médio"
+              "nativeQueryRef": "Itens",
+              "displayName": "Itens"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "_Medidas.Parcelas Média",
-              "nativeQueryRef": "Parcelas Média"
+              "nativeQueryRef": "Parcelas",
+              "displayName": "Parcelas"
             },
             {
               "field": {
@@ -97,11 +102,57 @@
                 }
               },
               "queryRef": "_Medidas.Lead Time Médio",
-              "nativeQueryRef": "Lead Time Médio"
+              "nativeQueryRef": "Lead",
+              "displayName": "Lead"
             }
           ]
         }
       }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "78.41381074756009D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fact_orders.situacao_entrega"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Perfil: atrasado vs no prazo'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

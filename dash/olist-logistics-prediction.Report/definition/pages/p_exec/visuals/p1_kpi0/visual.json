@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p1_kpi0",
   "position": {
-    "x": 251.81818181818178,
-    "y": 92.72727272727272,
+    "x": 252.70935960591135,
+    "y": 91.330049261083744,
     "z": 0,
-    "height": 80.9090909090909,
-    "width": 173.63636363636363,
+    "height": 82.463054187192114,
+    "width": 173.79310344827587,
     "tabOrder": 0
   },
   "visual": {
@@ -46,6 +46,19 @@
             }
           }
         }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -63,6 +76,19 @@
               "expr": {
                 "Literal": {
                   "Value": "'Pedidos Entregues'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

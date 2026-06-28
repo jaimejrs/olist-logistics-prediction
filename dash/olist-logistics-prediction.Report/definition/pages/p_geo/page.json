@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "p_geo",
-  "displayName": "4 · Análise Geográfica",
+  "displayName": "4 · Geografia & Regiões",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280,
@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'bg_4_analise_geografica.png'"
+                    "Value": "'4_analise_geografica.svg'"
                   }
                 }
               },
@@ -23,14 +23,14 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "bg_4_analise_geografica.png"
+                    "ItemName": "4_analise_geografica6719649292734694.svg"
                   }
                 }
               },
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Fit'"
+                    "Value": "'Normal'"
                   }
                 }
               }

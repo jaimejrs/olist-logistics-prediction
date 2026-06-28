@@ -1,0 +1,22 @@
+table dim_pagamento
+	lineageTag: f158faa1-a138-4552-9d7f-7d64988b2c7c
+
+	column tipo_pagamento
+		dataType: string
+		isKey
+		lineageTag: f5759bf1-74d5-4a00-bde5-8f532f950bfd
+		summarizeBy: none
+		sourceColumn: tipo_pagamento
+
+	column descricao
+		dataType: string
+		lineageTag: b881e0cd-544c-4595-9b06-180b5e5ff2a0
+		summarizeBy: none
+		sourceColumn: descricao
+
+	partition dim_pagamento = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="dim_pagamento"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_scatter",
   "position": {
-    "x": 770,
-    "y": 474,
-    "z": 13000,
-    "height": 58,
-    "width": 474,
-    "tabOrder": 13000
+    "x": 851.66666666666674,
+    "y": 336.66666666666669,
+    "z": 12000,
+    "height": 339.16666666666669,
+    "width": 401.66666666666669,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "scatterChart",
@@ -88,6 +88,21 @@
           ]
         }
       }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Frete x lead time (dispersão)'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

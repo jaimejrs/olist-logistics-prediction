@@ -226,6 +226,13 @@ table fact_orders
 		lineageTag: 64284671-ad28-48c4-8014-d2b45245d61c
 		summarizeBy: none
 
+	/// Nome completo do estado de destino (evita colisão das siglas com estados dos EUA no mapa).
+	column uf_cliente_nome = SWITCH(fact_orders[uf_cliente], "AC", "Acre", "AL", "Alagoas", "AP", "Amapá", "AM", "Amazonas", "BA", "Bahia", "CE", "Ceará", "DF", "Distrito Federal", "ES", "Espírito Santo", "GO", "Goiás", "MA", "Maranhão", "MT", "Mato Grosso", "MS", "Mato Grosso do Sul", "MG", "Minas Gerais", "PA", "Pará", "PB", "Paraíba", "PR", "Paraná", "PE", "Pernambuco", "PI", "Piauí", "RJ", "Rio de Janeiro", "RN", "Rio Grande do Norte", "RS", "Rio Grande do Sul", "RO", "Rondônia", "RR", "Roraima", "SC", "Santa Catarina", "SP", "São Paulo", "SE", "Sergipe", "TO", "Tocantins", fact_orders[uf_cliente])
+		dataType: string
+		lineageTag: 4e565c9a-20a6-44ab-a7bd-9518936e884f
+		dataCategory: StateOrProvince
+		summarizeBy: none
+
 	partition fact_orders = m
 		mode: import
 		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="fact_orders"]}[Data] in nav

@@ -1,0 +1,66 @@
+table dim_cliente
+	lineageTag: 15a6481c-cbda-434a-b38b-dd83f46e7f75
+
+	column customer_unique_id
+		dataType: string
+		isKey
+		lineageTag: 04e87af3-8274-4639-b854-433aad148ca6
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+	column n_pedidos
+		dataType: int64
+		lineageTag: 1b5d3f96-bc6d-4bef-97e3-67253e55225d
+		summarizeBy: sum
+		sourceColumn: n_pedidos
+
+	column teve_atraso
+		dataType: int64
+		lineageTag: e9ac08e2-e657-4b6e-8990-482d86488532
+		summarizeBy: none
+		sourceColumn: teve_atraso
+
+	column nota_media
+		dataType: double
+		formatString: 0.00
+		lineageTag: 732b5852-eeea-4f87-bc50-89ac9364e8ac
+		summarizeBy: average
+		sourceColumn: nota_media
+
+	column valor_total
+		dataType: double
+		formatString: \R$ #,0.00
+		lineageTag: a245160e-52f8-44c3-883c-2e4649b7a043
+		summarizeBy: sum
+		sourceColumn: valor_total
+
+	column recorrente
+		dataType: int64
+		lineageTag: 1b709fa7-ed14-4e4c-b5ff-f1887d6eb9f0
+		summarizeBy: none
+		sourceColumn: recorrente
+
+	/// Experiência de entrega do cliente (teve algum atraso?).
+	column situacao_cliente = IF(dim_cliente[teve_atraso] = 1, "Teve atraso", "Sempre no prazo")
+		dataType: string
+		lineageTag: a7d818ed-e144-4161-8163-c4f7c4f7acd4
+		summarizeBy: none
+
+	/// Faixa de recorrência.
+	column faixa_pedidos = SWITCH(TRUE(), dim_cliente[n_pedidos] = 1, "1 pedido", dim_cliente[n_pedidos] = 2, "2 pedidos", "3+ pedidos")
+		dataType: string
+		lineageTag: 3dfac06f-39aa-40e8-a144-352b9aea4b4b
+		summarizeBy: none
+
+	/// Tipo de cliente (único x recorrente).
+	column tipo_cliente = IF(dim_cliente[recorrente] = 1, "Recorrente", "Único")
+		dataType: string
+		lineageTag: 9d18f34a-bef8-45d5-9f10-bfd65fe42822
+		summarizeBy: none
+
+	partition dim_cliente = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="dim_cliente"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+

@@ -89,22 +89,51 @@ table _Medidas
 	measure 'Pedidos Exibidos Texto' = "Exibindo " & FORMAT([Pedidos], "#,0") & " de 96.203 pedidos"
 		lineageTag: a6e33a3a-fedb-4ea9-bd36-495360e4f1b6
 
-	measure 'Sim Score Linear' = -2.2 + 0.045 * 'Param Distância'[Param Distância Valor] - 0.090 * 'Param Prazo'[Param Prazo Valor] + 0.010 * 'Param Frete'[Param Frete Valor] + 0.00010 * 'Param Peso'[Param Peso Valor]
-		formatString: 0.00
-		lineageTag: 2dd64bfd-a307-471f-8fa1-350371593eb3
+	measure 'Cor Review Score' = SWITCH(SELECTEDVALUE(fact_orders[review_score]), 1, "#E4572E", 2, "#E4572E", 3, "#9AA5A8", 4, "#2E933C", 5, "#2E933C", "#9AA5A8")
+		lineageTag: 0bf411c1-f3ce-4ec3-a412-d8b6846c10fe
 
-	measure 'Sim Probabilidade Atraso' = DIVIDE(1, 1 + EXP(-[Sim Score Linear]))
+	measure 'Cor Situação' = SWITCH(SELECTEDVALUE(fact_orders[situacao_entrega]), "No prazo", "#2E933C", "Atrasado", "#E4572E", "#9AA5A8")
+		lineageTag: f83379be-6c8a-4f1d-9201-b205a435efb3
+
+	measure 'Taxa Atraso Origem %' = CALCULATE([Taxa Atraso %], USERELATIONSHIP(fact_orders[uf_seller], dim_geografia[uf]))
 		formatString: 0.0%
-		lineageTag: 4c83c1f0-02b6-4ef0-ad44-fae5abdd3657
+		lineageTag: c3232912-9c17-41b8-b518-e27fc3811094
 
-	measure 'Sim Classificação' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "BAIXO RISCO", [Sim Probabilidade Atraso] <= 0.50, "RISCO MODERADO", "ALTO RISCO")
-		lineageTag: 99cf1e52-2c7a-43f7-a4a1-4fbe0996c22f
+	measure 'Lead Time Origem' = CALCULATE([Lead Time Médio], USERELATIONSHIP(fact_orders[uf_seller], dim_geografia[uf]))
+		formatString: 0.0
+		lineageTag: 5f568038-f0f3-4fa3-b87a-f7b763126bb2
 
-	measure 'Sim Cor Risco' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "#2E933C", [Sim Probabilidade Atraso] <= 0.50, "#F2B705", "#E4572E")
-		lineageTag: b9b943b8-6a5a-4860-a36c-bb41d9fab3b9
+	measure 'Pedidos Origem' = CALCULATE([Pedidos], USERELATIONSHIP(fact_orders[uf_seller], dim_geografia[uf]))
+		formatString: #,0
+		lineageTag: deefa5de-aad9-40e3-86d0-049b8d889263
 
-	measure 'Sim Recomendação' = SWITCH(TRUE(), [Sim Probabilidade Atraso] < 0.30, "Fluxo normal de despacho. Risco dentro da meta.", [Sim Probabilidade Atraso] <= 0.50, "Priorizar despacho e revisar o prazo prometido ao cliente.", "Acionar transportadora alternativa e comunicar prazo realista ao cliente.")
-		lineageTag: c358ab68-8178-4262-bb09-589bc20f7e72
+	measure 'Total Clientes' = COUNTROWS(dim_cliente)
+		formatString: #,0
+		lineageTag: 16b9e6ec-395d-448a-95a2-fef3ea6446ab
+
+	measure 'Clientes Recorrentes' = CALCULATE(COUNTROWS(dim_cliente), dim_cliente[recorrente] = 1)
+		formatString: #,0
+		lineageTag: cc53a9b5-f16c-424c-b4df-351d08ae007c
+
+	measure 'Taxa de Recompra' = DIVIDE([Clientes Recorrentes], [Total Clientes])
+		formatString: 0.0%
+		lineageTag: 578f6cd9-4733-42fc-9383-eac355eaaadf
+
+	measure 'Receita Total' = SUM(fact_orders[valor_pago])
+		formatString: \R$ #,0
+		lineageTag: aac75308-8a32-4d98-920b-20757faa7f1e
+
+	measure 'Receita em Risco' = CALCULATE(SUM(fact_orders[valor_pago]), fact_orders[flag_atraso] = 1)
+		formatString: \R$ #,0
+		lineageTag: c55a9c04-1bab-4b90-bff4-221bc492b4b8
+
+	measure '% Receita em Risco' = DIVIDE([Receita em Risco], [Receita Total])
+		formatString: 0.0%
+		lineageTag: 5aae412b-21e0-417e-a5c7-00e07e0e233d
+
+	measure 'Ticket por Cliente' = DIVIDE([Receita Total], [Total Clientes])
+		formatString: \R$ #,0.00
+		lineageTag: 8a3d28f8-94b9-4bee-b50e-47a40acc9ff5
 
 	column Value
 		dataType: int64

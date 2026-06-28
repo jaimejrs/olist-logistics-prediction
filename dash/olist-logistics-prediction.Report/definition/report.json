@@ -65,43 +65,33 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "bg_0_capa.png",
-          "path": "bg_0_capa.png",
+          "name": "0_capa1442216807744936.png",
+          "path": "0_capa1442216807744936.png",
           "type": "Image"
         },
         {
-          "name": "bg_1_visao_executiva.png",
-          "path": "bg_1_visao_executiva.png",
+          "name": "1_visao_executiva9638265062740984.svg",
+          "path": "1_visao_executiva9638265062740984.svg",
           "type": "Image"
         },
         {
-          "name": "bg_2_logistica_atrasos.png",
-          "path": "bg_2_logistica_atrasos.png",
+          "name": "2_logistica_atrasos051115059133949425.svg",
+          "path": "2_logistica_atrasos051115059133949425.svg",
           "type": "Image"
         },
         {
-          "name": "bg_3_satisfacao_cliente.png",
-          "path": "bg_3_satisfacao_cliente.png",
+          "name": "3_satisfacao_cliente4605424468486823.svg",
+          "path": "3_satisfacao_cliente4605424468486823.svg",
           "type": "Image"
         },
         {
-          "name": "bg_4_analise_geografica.png",
-          "path": "bg_4_analise_geografica.png",
+          "name": "4_analise_geografica6719649292734694.svg",
+          "path": "4_analise_geografica6719649292734694.svg",
           "type": "Image"
         },
         {
-          "name": "bg_5a_preditivo_desempenho.png",
-          "path": "bg_5a_preditivo_desempenho.png",
-          "type": "Image"
-        },
-        {
-          "name": "bg_5b_preditivo_simulador.png",
-          "path": "bg_5b_preditivo_simulador.png",
-          "type": "Image"
-        },
-        {
-          "name": "bg_6_metodologia.png",
-          "path": "bg_6_metodologia.png",
+          "name": "8_retencao857050017588024.png",
+          "path": "8_retencao857050017588024.png",
           "type": "Image"
         },
         {

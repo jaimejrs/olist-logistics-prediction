@@ -1,0 +1,22 @@
+table dim_categoria
+	lineageTag: 9ed1d984-6a39-4789-9e92-9265d3e70b94
+
+	column categoria_principal
+		dataType: string
+		isKey
+		lineageTag: ba245d67-ce8e-4f4c-8367-756f4b485137
+		summarizeBy: none
+		sourceColumn: categoria_principal
+
+	column segmento
+		dataType: string
+		lineageTag: 288af66a-b882-4a5c-97f4-e945ef04a2bd
+		summarizeBy: none
+		sourceColumn: segmento
+
+	partition dim_categoria = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="dim_categoria"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+

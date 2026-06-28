@@ -1,0 +1,44 @@
+table dim_geografia
+	lineageTag: 690cff38-ba98-4bab-b293-88e23732d7df
+
+	column uf
+		dataType: string
+		isKey
+		lineageTag: 2fcefcb0-f0ee-4c4e-a429-aedd5f446bbb
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: uf
+
+	column nome_estado
+		dataType: string
+		lineageTag: 5c130ef4-f5f3-457d-98aa-b08d74914fc5
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: nome_estado
+
+	column regiao
+		dataType: string
+		lineageTag: 6a3efb7b-7a49-4266-94a6-ca3d6a4034cc
+		summarizeBy: none
+		sourceColumn: regiao
+
+	column lat
+		dataType: double
+		lineageTag: 3a85b49c-f975-4226-91e6-dff978f224d6
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: lat
+
+	column lng
+		dataType: double
+		lineageTag: 20989961-bd9f-47e2-ac09-731bfb3ff9e8
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: lng
+
+	partition dim_geografia = m
+		mode: import
+		source = let Source = PostgreSQL.Database(PG_Server, PG_Database), nav = Source{[Schema="analytics", Item="dim_geografia"]}[Data] in nav
+
+	annotation PBI_ResultType = Table
+

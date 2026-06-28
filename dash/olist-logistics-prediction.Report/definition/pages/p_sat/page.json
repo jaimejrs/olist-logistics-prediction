@@ -5,6 +5,11 @@
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280,
+  "pageBinding": {
+    "name": "6a6537a763d7d6f7e815",
+    "type": "Default",
+    "parameters": []
+  },
   "objects": {
     "background": [
       {
@@ -14,7 +19,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'bg_3_satisfacao_cliente.png'"
+                    "Value": "'3_satisfacao_cliente.svg'"
                   }
                 }
               },
@@ -23,14 +28,14 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "bg_3_satisfacao_cliente.png"
+                    "ItemName": "3_satisfacao_cliente4605424468486823.svg"
                   }
                 }
               },
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Fit'"
+                    "Value": "'Normal'"
                   }
                 }
               }

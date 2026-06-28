@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p4_mapa",
   "position": {
-    "x": 256,
-    "y": 142,
+    "x": 245,
+    "y": 87,
     "z": 0,
-    "height": 286,
-    "width": 557,
+    "height": 340,
+    "width": 761,
     "tabOrder": 0
   },
   "visual": {
@@ -23,16 +23,90 @@
                       "Entity": "fact_orders"
                     }
                   },
-                  "Property": "uf_cliente"
+                  "Property": "uf_cliente_nome"
                 }
               },
-              "queryRef": "fact_orders.uf_cliente",
-              "nativeQueryRef": "uf_cliente",
+              "queryRef": "fact_orders.uf_cliente_nome",
+              "nativeQueryRef": "uf_cliente_nome",
               "active": true
             }
           ]
         },
-        "Gradient": {
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Pedidos"
+                }
+              },
+              "queryRef": "_Medidas.Pedidos",
+              "nativeQueryRef": "Pedidos"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Lead Time Médio"
+                }
+              },
+              "queryRef": "_Medidas.Lead Time Médio",
+              "nativeQueryRef": "Lead Time Médio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Atraso Médio Dias"
+                }
+              },
+              "queryRef": "_Medidas.Atraso Médio Dias",
+              "nativeQueryRef": "Atraso Médio Dias"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Frete Médio"
+                }
+              },
+              "queryRef": "_Medidas.Frete Médio",
+              "nativeQueryRef": "Frete Médio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Distância Média (km)"
+                }
+              },
+              "queryRef": "_Medidas.Distância Média (km)",
+              "nativeQueryRef": "Distância Média (km)"
+            }
+          ]
+        },
+        "Value": {
           "projections": [
             {
               "field": {
@@ -50,9 +124,17 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
       }
     },
     "objects": {
+      "dataPoint": [
+        {
+          "properties": {}
+        }
+      ],
       "mapControls": [
         {
           "properties": {
@@ -87,21 +169,21 @@
             "zoom": {
               "expr": {
                 "Literal": {
-                  "Value": "0.72D"
+                  "Value": "2.1D"
                 }
               }
             },
             "centerLatitude": {
               "expr": {
                 "Literal": {
-                  "Value": "10.185044419111563D"
+                  "Value": "-15.128359924415676D"
                 }
               }
             },
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "-72.44883000000004D"
+                  "Value": "-51.41535499999998D"
                 }
               }
             }
@@ -148,6 +230,60 @@
               "expr": {
                 "Literal": {
                   "Value": "40L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Mapa do Brasil — Taxa de Atraso por UF'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

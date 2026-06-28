@@ -2,3 +2,24 @@ relationship rel_dimdate_factorders
 	fromColumn: fact_orders.data_compra
 	toColumn: dim_date.data
 
+relationship rel_geo_cliente
+	fromColumn: fact_orders.uf_cliente
+	toColumn: dim_geografia.uf
+
+relationship rel_geo_seller
+	isActive: false
+	fromColumn: fact_orders.uf_seller
+	toColumn: dim_geografia.uf
+
+relationship rel_categoria
+	fromColumn: fact_orders.categoria_principal
+	toColumn: dim_categoria.categoria_principal
+
+relationship rel_pagamento
+	fromColumn: fact_orders.tipo_pagamento
+	toColumn: dim_pagamento.tipo_pagamento
+
+relationship rel_cliente
+	fromColumn: fact_orders.customer_unique_id
+	toColumn: dim_cliente.customer_unique_id
+

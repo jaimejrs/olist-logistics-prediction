@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_kpi1",
   "position": {
-    "x": 509,
-    "y": 118,
-    "z": 7000,
-    "height": 54,
-    "width": 225,
-    "tabOrder": 7000
+    "x": 508.9655172413793,
+    "y": 92.216748768472911,
+    "z": 6000,
+    "height": 81.576354679802961,
+    "width": 225.22167487684729,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "card",
@@ -41,6 +41,41 @@
               "expr": {
                 "Literal": {
                   "Value": "26D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Atraso Médio (Dias)'"
                 }
               }
             }

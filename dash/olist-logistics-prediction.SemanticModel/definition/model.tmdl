@@ -10,16 +10,15 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["PG_Server","PG_Database","fact_orders","dim_date"]
+annotation PBI_QueryOrder = ["PG_Server","PG_Database","fact_orders","dim_date","dim_geografia","dim_categoria","dim_pagamento","dim_cliente"]
 
 ref table dim_date
 ref table fact_orders
-ref table Metas
-ref table 'Param Distância'
-ref table 'Param Frete'
-ref table 'Param Peso'
-ref table 'Param Prazo'
 ref table _Medidas
+ref table dim_geografia
+ref table dim_categoria
+ref table dim_pagamento
+ref table dim_cliente
 
 ref cultureInfo pt-BR
 

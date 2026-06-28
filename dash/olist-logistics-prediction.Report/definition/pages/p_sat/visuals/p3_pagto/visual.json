@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p3_pagto",
   "position": {
-    "x": 256,
-    "y": 456,
+    "x": 890.66666666666663,
+    "y": 196,
     "z": 6000,
-    "height": 96,
-    "width": 474,
+    "height": 180,
+    "width": 362.66666666666669,
     "tabOrder": 6000
   },
   "visual": {
@@ -70,6 +70,34 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Satisfação por tipo de pagamento'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]

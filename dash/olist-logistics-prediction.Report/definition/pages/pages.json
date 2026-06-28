@@ -6,9 +6,7 @@
     "p_log",
     "p_sat",
     "p_geo",
-    "p_mlperf",
-    "p_sim",
-    "p_metod"
+    "p_retencao"
   ],
   "activePageName": "p_exec"
 }

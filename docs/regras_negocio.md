@@ -23,17 +23,16 @@ Nosso problema de negócio busca prever atrasos de entrega e baixa satisfação.
 - **Nulos em Produtos:** O campo `product_category_name` tem ~1.85% de nulos — preencher com `'unknown'`. Campos numéricos de dimensão/peso com nulos residuais (~0.01%) — imputar com a mediana da coluna.
 - **Agregação de Itens (order_items → orders):** `SUM(price) AS valor_produtos`, `SUM(freight_value) AS frete_total`, `COUNT(*) AS qtd_itens`, `COUNT(DISTINCT seller_id) AS qtd_sellers`.
 - **Agregação de Pagamentos (order_payments → orders):** `SUM(payment_value) AS valor_pago`, `MAX(payment_installments) AS max_parcelas`, tipo de pagamento predominante como `payment_type`.
-- **Distância geográfica (`distancia_km`):** distância de Haversine entre as coordenadas médias do CEP do cliente e do CEP do seller principal (maior item), calculada em SQL via `staging.geolocation`. ~0.5% de nulos (CEP ausente na base geográfica) — imputados pela mediana no pipeline de ML.
+- **Distância geográfica (`distancia_km`):** distância de Haversine entre as coordenadas médias do CEP do cliente e do CEP do seller principal (maior item), calculada em SQL via `staging.geolocation`. ~0.5% de nulos (CEP ausente na base geográfica) — imputados pela mediana quando necessário.
 - **Prazo prometido (`prazo_prometido_dias`):** `order_estimated_delivery_date − order_purchase_timestamp` em dias. Representa a janela de entrega prometida ao cliente no checkout.
 
-## 4. Prevenção de "Data Leakage" (Vazamento de Dados)
-Ao desenvolver o **Modelo 1 (Predição de Atraso)**, utilizaremos a perspectiva de tempo do "momento da compra". 
-- **É proibido** o uso de variáveis que só passam a existir *após* a compra ou o despacho (ex.: `order_delivered_carrier_date`, `lead_time_dias` ou `atraso_dias`) no processo de treinamento e inferência do modelo de atraso.
-- O modelo deverá ser alimentado apenas com os dados que o sistema Olist já possuiria no exato instante em que o cliente aperta o botão "Comprar" (UF de origem, UF de destino, **distância**, **prazo prometido**, peso, dimensões, valor do frete, preço do produto, categoria, dia da semana da compra, etc.).
-- **Nota:** `prazo_prometido_dias` (estimado − compra) **é permitido** no Modelo 1 — a data estimada é definida e exibida ao cliente no momento da compra, portanto não é vazamento. Foi a feature de maior ganho preditivo (validada por ablação: AUC ~0.75 → ~0.78).
-- **Modelo 2 (Review Ruim):** aqui `flag_atraso` e `atraso_dias` são permitidos como features, pois o review ocorre após a entrega.
+## 4. Perspectiva temporal (compra × entrega)
+Para uma leitura honesta dos dados, as colunas de `fact_orders` são separadas pelo instante em que passam a existir:
+- **Conhecidas no momento da compra:** UF de origem/destino, `distancia_km`, `prazo_prometido_dias`, peso, dimensões, valor do frete, preço, categoria, dia da semana. A `prazo_prometido_dias` (estimado − compra) entra aqui, pois a data estimada é exibida ao cliente no checkout.
+- **Conhecidas apenas após a entrega:** `lead_time_dias`, `atraso_dias`, `flag_atraso` e, após a avaliação, `review_score`/`flag_review_ruim`.
 
-## 5. Desbalanceamento de Classes e Métricas
-- `flag_atraso` é a classe minoritária (~8–10% dos pedidos entregues). 
-- `flag_review_ruim` é a classe minoritária (~25–30% dos reviews).
-- Em ambos os modelos: usar `class_weight="balanced"` (sklearn) ou `scale_pos_weight` (XGBoost), `stratify=y` no split, e reportar **F1, Recall da classe positiva, ROC-AUC e PR-AUC** como métricas principais. Acurácia bruta é enganosa com classes desbalanceadas.
+Essa separação evita atribuir ao "momento da compra" um fato que só se conhece na entrega.
+
+## 5. Distribuição das classes-alvo
+- `flag_atraso`: minoritária (~8–10% dos pedidos entregues).
+- `flag_review_ruim`: minoritária (~25–30% dos reviews com nota ≤ 3).

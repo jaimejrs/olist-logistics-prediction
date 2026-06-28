@@ -87,8 +87,8 @@ Hub central de análises e ML. Itens e pagamentos são agregados ao grão do ped
 | `review_score` | bigint | Nota da avaliação (1–5); nulo se sem review. |
 | `lead_time_dias` | numeric | Dias entre compra e entrega (pós-entrega). |
 | `atraso_dias` | numeric | Dias de atraso (`delivered_ts − estimated_ts`); negativo = adiantado. |
-| `flag_atraso` | int | **Alvo M1.** 1 se entregue após o estimado, senão 0. |
-| `flag_review_ruim` | int | **Alvo M2.** 1 se `review_score <= 3`; nulo se sem review. |
+| `flag_atraso` | int | Indicador de atraso. 1 se entregue após o estimado, senão 0. |
+| `flag_review_ruim` | int | Indicador de review ruim. 1 se `review_score <= 3`; nulo se sem review. |
 
 ## `analytics.dim_date` (dimensão calendário)
 
@@ -108,18 +108,18 @@ para inteligência temporal (relaciona com `purchase_date` dos marts).
 | `dia` | int | Dia do mês. |
 | `fim_de_semana` | bool | True para sábado/domingo. |
 
-## `analytics.mart_logistics` (view → Modelo 1 e BI de logística)
+## `analytics.mart_logistics` (view → BI de logística)
 
 Subconjunto de `fact_orders` focado em logística, com `purchase_date` para relacionar com
-`dim_date`. Para treino do Modelo 1, **excluir** as colunas pós-entrega (`lead_time_dias`,
-`atraso_dias`) por serem leakage. Colunas: `order_id`, `customer_unique_id`, `purchase_date`,
+`dim_date`. Inclui as colunas pós-entrega (`lead_time_dias`, `atraso_dias`) para diagnóstico
+do atraso. Colunas: `order_id`, `customer_unique_id`, `purchase_date`,
 `uf_cliente`, `uf_seller`, `distancia_km`, `categoria_principal`, `ano_compra`, `mes_compra`,
 `dia_semana_compra`, `prazo_prometido_dias`, `qtd_itens`, `qtd_sellers`, `valor_produtos`,
 `frete_total`, `peso_total_g`, `valor_pago`, `max_parcelas`, `tipo_pagamento`, `lead_time_dias`,
 `atraso_dias`, `flag_atraso`.
 
-## `analytics.mart_customer_satisfaction` (view → Modelo 2 e BI de satisfação)
+## `analytics.mart_customer_satisfaction` (view → BI de satisfação)
 
-Subconjunto de `fact_orders` com review presente (`flag_review_ruim IS NOT NULL`). Aqui
-`flag_atraso`/`atraso_dias` **são features válidas** (o review ocorre após a entrega). Acrescenta
-`review_score` e `flag_review_ruim` em relação ao `mart_logistics`.
+Subconjunto de `fact_orders` com review presente (`flag_review_ruim IS NOT NULL`). Relaciona
+satisfação com o atraso (`flag_atraso`/`atraso_dias`, pós-entrega). Acrescenta `review_score` e
+`flag_review_ruim` em relação ao `mart_logistics`.

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_seller",
   "position": {
-    "x": 256,
-    "y": 612,
-    "z": 14000,
-    "height": 58,
-    "width": 988,
-    "tabOrder": 14000
+    "x": 528.18181818181813,
+    "y": 420.90909090909088,
+    "z": 13000,
+    "height": 261.81818181818181,
+    "width": 296.36363636363632,
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "columnChart",
@@ -70,6 +70,21 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ofensores Multi-seller'"
+                }
+              }
+            }
           }
         }
       ]

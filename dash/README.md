@@ -28,42 +28,47 @@ parametrizado para não expor segredos no repositório:
 ## Modelo de dados (star schema)
 
 ```
-dim_date[data] 1──* fact_orders[data_compra]
+dim_date · dim_geografia · dim_categoria · dim_pagamento · dim_cliente
+                              ╲ │ ╱
+                          fact_orders   (1 linha = 1 pedido entregue)
 ```
 
 | Tabela | Conteúdo |
 |--------|----------|
 | `fact_orders` | Fato (1 linha = 1 pedido entregue) + colunas calculadas: `situacao_entrega`, `faixa_atraso`, `perfil_seller`, `dia_semana_nome`, `rota`, `data_compra`. |
 | `dim_date` | Calendário (marcada como tabela de datas) + `ano_mes`, `ano_trimestre`. |
-| `_Medidas` | 28 medidas DAX (KPIs, % review ruim, time-intelligence vs. trimestre, cores de semáforo, simulador). |
+| `dim_geografia` | UF → região, lat/lng. Role-playing: UF cliente (ativa) e UF seller (inativa, via `USERELATIONSHIP`). |
+| `dim_categoria` · `dim_pagamento` · `dim_cliente` | Segmento da categoria · descrição do pagamento · cliente único (recorrência, nota média, valor). |
+| `_Medidas` | 35 medidas DAX (KPIs, % review ruim, time-intelligence vs. trimestre, cores de semáforo, receita e recompra). |
 | `Metas` | Limiares dos semáforos (atraso ≤8/12%, review ≤25/30%, nota ≥4,2/3,8). |
-| `Param Distância/Prazo/Frete/Peso` | What-if parameters do simulador M1. |
 
-## Páginas (8)
+## Páginas (Capa + 5)
 
-| # | Página | Conteúdo |
-|---|--------|----------|
-| 0 | Capa | Navegação (6 botões) |
-| 1 | Visão Executiva | 5 KPIs + tendência mensal/trimestral + categorias + distribuição de nota |
-| 2 | Logística & Atrasos | Efeito-limiar, perfil atrasado×no prazo, dia da semana, dispersão, multi-seller |
-| 3 | Satisfação | Atraso×satisfação, 100% empilhado, pagamento, categorias, curva de impacto |
-| 4 | Geográfica | Mapa por UF, top rotas, rankings UF cliente/seller |
-| 5a | ML — Desempenho | Figuras dos modelos (`reports/*.png` embutidas no fundo) |
-| 5b | ML — Simulador M1 | What-if + gauge de probabilidade + classificação + recomendação |
-| 6 | Metodologia | Página-texto (problema, pipeline, estatística, glossário, limitações) |
+Arco narrativo: **macro → causa logística → causa satisfação → onde → quem → como**.
 
-Os **fundos** (`powerbi/backgrounds/*.svg`) foram rasterizados para PNG 1280×720 e
-aplicados como plano de fundo de cada página; os visuais (transparentes, sem título)
-são posicionados sobre os cards. O **tema** `olist_theme` (paleta teal Olist) já vem aplicado.
+| # | Página | Pergunta | Conteúdo |
+|---|--------|----------|----------|
+| 0 | Capa | — | Navegação (6 botões) |
+| 1 | Visão Executiva | Como está a operação? | 5 KPIs + tendência mensal/trimestral + categorias + distribuição de nota |
+| 2 | Logística & Atrasos | O que causa os atrasos? | Efeito-limiar, perfil atrasado×no prazo, dia da semana, dispersão, multi-seller |
+| 3 | Satisfação do Cliente | O que derruba a nota? | Atraso×satisfação, 100% empilhado, pagamento, categorias, curva de impacto |
+| 4 | Geografia & Regiões | Onde estão as regiões e rotas críticas? | Macro por região (destino×origem) → mapa por UF + top rotas → rankings UF cliente/seller |
+| 5 | Valor do Cliente | Quem são os clientes e quanto valem? | Receita, receita em risco, recompra/retenção |
 
-## Simulador M1 (página 5b)
+> A página **Geografia & Regiões** unifica as antigas *Geográfica* e *Regional* (macro→micro).
+> A camada de **Machine Learning foi descontinuada** — não há páginas de modelos nem simulador.
 
-O simulador é **interativo via What-if + DAX** (`_Medidas[Sim Probabilidade Atraso]`),
-uma aproximação logística transparente baseada nas features de maior ganho do M1
-(prazo prometido, distância, frete, peso). Para a **predição fiel do modelo treinado**,
-substitua o gauge por um **Python visual** carregando `models/modelo1_atraso.pkl` e
-`models/modelo1_thresholds.pkl` (ver `docs/dashboard_layout.md` §5). Os `.pkl` não estão
-versionados (gerados por `notebooks/03_modelagem.ipynb`).
+Os **fundos** (`powerbi/backgrounds/*.svg`) são rasterizados para PNG 1280×720
+(via Chromium headless / Playwright — ver abaixo) e aplicados como plano de fundo de
+cada página; os visuais (transparentes, sem título) são posicionados sobre os cards. O **tema**
+`olist_theme` (paleta teal Olist) já vem aplicado.
+
+## Regenerar os fundos (SVG → PNG)
+
+Os títulos, rótulos e textos ficam embutidos nos SVG de `powerbi/backgrounds/`. Para alterá-los,
+edite o `.svg` e rasterize de novo (1280×720) sobrescrevendo o `bg_*.png` em
+`StaticResources/RegisteredResources/` (mesmo nome → não muda o JSON). As páginas *Logística* e
+*Satisfação* usam o SVG diretamente como recurso (texto vetorizado).
 
 ## Observações
 

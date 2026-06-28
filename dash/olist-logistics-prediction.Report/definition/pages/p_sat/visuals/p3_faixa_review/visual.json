@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p3_faixa_review",
   "position": {
-    "x": 262,
-    "y": 632,
+    "x": 248.66666666666666,
+    "y": 404,
     "z": 8000,
-    "height": 40,
-    "width": 982,
+    "height": 274.66666666666669,
+    "width": 594,
     "tabOrder": 8000
   },
   "visual": {
@@ -87,6 +87,21 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]

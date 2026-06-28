@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_kpi3",
   "position": {
-    "x": 1023,
-    "y": 118,
-    "z": 9000,
-    "height": 54,
-    "width": 225,
-    "tabOrder": 9000
+    "x": 1023.2512315270936,
+    "y": 92.216748768472911,
+    "z": 8000,
+    "height": 81.576354679802961,
+    "width": 224.33497536945814,
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "card",
@@ -41,6 +41,41 @@
               "expr": {
                 "Literal": {
                   "Value": "26D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Prazo Prometido Médio'"
                 }
               }
             }

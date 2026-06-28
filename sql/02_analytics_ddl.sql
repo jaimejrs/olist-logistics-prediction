@@ -53,7 +53,7 @@ SELECT
     -- Geografias
     c.uf_cliente,
     s.uf_seller,
-    -- Distância seller→cliente (Haversine, km) — feature pré-compra do Modelo 1
+    -- Distância seller→cliente (Haversine, km) — conhecida no momento da compra
     ROUND((2 * 6371 * asin(sqrt(
         power(sin(radians(gs.lat - gc.lat) / 2), 2) +
         cos(radians(gc.lat)) * cos(radians(gs.lat)) *
@@ -61,14 +61,14 @@ SELECT
     )))::numeric, 2)                                                       AS distancia_km,
     -- Produto principal
     i.categoria_principal,
-    -- Temporais (features seguras para Modelo 1 — existem no momento da compra)
+    -- Temporais (atributos conhecidos no momento da compra)
     o.purchase_ts,
     EXTRACT(YEAR  FROM o.purchase_ts)::int                                 AS ano_compra,
     EXTRACT(MONTH FROM o.purchase_ts)::int                                 AS mes_compra,
     EXTRACT(DOW   FROM o.purchase_ts)::int                                 AS dia_semana_compra,
-    -- Prazo prometido pela Olist no checkout (estimado − compra) — pré-compra, sem leakage
+    -- Prazo prometido pela Olist no checkout (estimado − compra) — conhecido na compra
     ROUND((EXTRACT(EPOCH FROM (o.estimated_ts - o.purchase_ts)) / 86400.0)::numeric, 2) AS prazo_prometido_dias,
-    -- Datas de entrega (pós-compra — usar apenas em análises e Modelo 2)
+    -- Datas de entrega (conhecidas apenas após a entrega)
     o.estimated_ts,
     o.delivered_ts,
     -- Métricas de itens
@@ -83,7 +83,7 @@ SELECT
     p.tipo_pagamento,
     -- Review
     r.review_score,
-    -- Métricas derivadas pós-entrega (NÃO usar como feature no Modelo 1)
+    -- Métricas derivadas pós-entrega
     ROUND((EXTRACT(EPOCH FROM (o.delivered_ts - o.purchase_ts))  / 86400.0)::numeric, 2) AS lead_time_dias,
     ROUND((EXTRACT(EPOCH FROM (o.delivered_ts - o.estimated_ts)) / 86400.0)::numeric, 2) AS atraso_dias,
     -- Variáveis-alvo
@@ -129,7 +129,7 @@ FROM generate_series(
 
 -- ------------------------------------------------------------
 -- mart_logistics
--- Features disponíveis no momento da compra → Modelo 1 (flag_atraso)
+-- Atributos conhecidos no momento da compra → BI de logística (flag_atraso)
 -- purchase_date exposta para relacionamento com dim_date no Power BI
 -- ------------------------------------------------------------
 CREATE VIEW analytics.mart_logistics AS
@@ -160,7 +160,7 @@ FROM analytics.fact_orders;
 
 -- ------------------------------------------------------------
 -- mart_customer_satisfaction
--- Todas as features + flag_atraso como feature → Modelo 2 (flag_review_ruim)
+-- Todos os atributos + flag_atraso → BI de satisfação (flag_review_ruim)
 -- flag_atraso é permitida pois o review ocorre após a entrega
 -- ------------------------------------------------------------
 CREATE VIEW analytics.mart_customer_satisfaction AS

@@ -4,10 +4,10 @@
   "position": {
     "x": 17.27272727272727,
     "y": 453.63636363636363,
-    "z": 15002,
+    "z": 15000,
     "height": 29.999999999999996,
     "width": 186.36363636363635,
-    "tabOrder": 15002
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "slicer",
@@ -64,47 +64,6 @@
       "general": [
         {
           "properties": {
-            "filter": {
-              "filter": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "f",
-                    "Entity": "fact_orders",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "f"
-                                }
-                              },
-                              "Property": "situacao_entrega"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Atrasado'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            },
             "orientation": {
               "expr": {
                 "Literal": {

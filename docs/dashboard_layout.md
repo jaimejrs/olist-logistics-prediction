@@ -2,8 +2,12 @@
 
 > Especificação visual do dashboard **Power BI** do projeto *Olist Logistics Prediction*.
 > Define páginas, grid, posição de cards, filtros, gráficos e páginas de texto.
-> Fonte de dados: `analytics.fact_orders` (96.203 pedidos entregues, 2017-2018), `dim_date`,
-> `mart_logistics`, `mart_customer_satisfaction` + modelos `.pkl` em `models/`.
+> Fonte de dados: `analytics.fact_orders` (96.203 pedidos entregues, 2017-2018) + dimensões
+> (`dim_date`, `dim_geografia`, `dim_categoria`, `dim_pagamento`, `dim_cliente`).
+>
+> **Nota (revisão):** a camada de Machine Learning foi descontinuada. O dashboard tem **6 páginas
+> de conteúdo** (sem Preditivo/Simulador) e as antigas *Geográfica* e *Regional* foram **fundidas**
+> em **Geografia & Regiões**. As seções abaixo que descrevem o Preditivo são históricas.
 
 ---
 
@@ -37,17 +41,16 @@
 
 ---
 
-## 2. Mapa de navegação (7 páginas)
+## 2. Mapa de navegação (Capa + 5 páginas)
 
 ```
 [0] Capa / Navegação
         │
-        ├─ [1] Visão Executiva ........ KPIs gerais + tendência (entrada padrão)
-        ├─ [2] Logística & Atrasos .... domínio do Modelo M1
-        ├─ [3] Satisfação do Cliente .. domínio do Modelo M2
-        ├─ [4] Análise Geográfica ..... mapa, rotas, UF origem/destino
-        ├─ [5] Inteligência Preditiva . resultados ML + SIMULADOR M1
-        └─ [6] Metodologia / Sobre .... página-texto (regras, estatística, glossário)
+        ├─ [1] Visão Executiva ........ Como está a operação? — KPIs + tendência (entrada padrão)
+        ├─ [2] Logística & Atrasos .... O que causa os atrasos?
+        ├─ [3] Satisfação do Cliente .. O que derruba a nota?
+        ├─ [4] Geografia & Regiões .... Onde estão as regiões e rotas críticas? (macro→micro)
+        └─ [5] Valor do Cliente ....... Quem são os clientes e quanto valem? (receita, risco, retenção)
 ```
 
 Navegação por **botões de página** num menu lateral fixo (ícone + rótulo), com estado *selected*
@@ -92,7 +95,7 @@ Página de entrada, sem dados — contexto e direção.
 │   num marketplace brasileiro · 96.203 pedidos · 2017–2018   │
 │                                                             │
 │   ┌ Visão Executiva ┐  ┌ Logística ┐  ┌ Satisfação ┐        │
-│   ┌ Geográfica ┐  ┌ Preditivo ┐  ┌ Metodologia ┐            │
+│   ┌ Geografia & Regiões ┐  ┌ Valor do Cliente ┐  ┌ Metodologia ┐ │
 │                                                             │
 │   Fonte: Brazilian E-Commerce Public Dataset (Kaggle)       │
 └────────────────────────────────────────────────────────────┘
@@ -128,7 +131,7 @@ Abaixo, **2 linhas de gráficos** (6 col cada):
 
 ---
 
-### [2] Logística & Atrasos — *"O que causa os atrasos?"* (domínio M1)
+### [2] Logística & Atrasos — *"O que causa os atrasos?"*
 
 KPIs (4 cards): Taxa de atraso · Atraso médio (dias, só atrasados) · Lead time médio · Prazo prometido médio.
 
@@ -152,7 +155,7 @@ KPIs (4 cards): Taxa de atraso · Atraso médio (dias, só atrasados) · Lead ti
 
 ---
 
-### [3] Satisfação do Cliente — *"O que derruba a nota?"* (domínio M2)
+### [3] Satisfação do Cliente — *"O que derruba a nota?"*
 
 KPIs (4 cards): Nota média · % Review ruim (≤3) · % Promotores (5) · Nº de reviews.
 
@@ -174,7 +177,11 @@ KPIs (4 cards): Nota média · % Review ruim (≤3) · % Promotores (5) · Nº d
 
 ---
 
-### [4] Análise Geográfica — *"Onde estão as rotas críticas?"*
+### [4] Geografia & Regiões — *"Onde estão as regiões e rotas críticas?"*
+
+> **Fusão (revisão):** unifica as antigas *Geográfica* e *Regional* numa leitura macro→micro:
+> faixa macro **por região** (atraso destino × origem) no topo → **mapa por UF** + **top rotas** →
+> **rankings UF** cliente/seller. Mantém o painel de filtros lateral das páginas 1–4.
 
 ```
 ├── 7 col ──────────────────────────┬── 5 col ──────────────┤
@@ -194,49 +201,23 @@ KPIs (4 cards): Nota média · % Review ruim (≤3) · % Promotores (5) · Nº d
 
 ---
 
-### [5] Inteligência Preditiva — *"Dá pra prever antes de acontecer?"* (ML + Simulador)
+### [5] Valor do Cliente — *"Quem são os clientes e quanto valem?"*
 
-Duas seções com **navegação por abas internas (bookmarks):** `Desempenho dos modelos` | `Simulador M1`.
-
-**Aba A — Desempenho dos modelos**
-```
-┌── M1 — Atraso (AUC 0,78) ─────────┬── M2 — Review ruim (0,71) ──┐
-│ card AUC + CV (0,786±0,005)       │ card AUC + CV (0,715±0,004) │
-│ img m1_avaliacao (ROC/PR)         │ img m2_avaliacao            │
-│ img m1_feature_importance         │ img m2_feature_importance   │
-│ img m1_shap_summary               │                             │
-│ img m1_threshold (custo-sensível) │                             │
-└────────────────────────────────────────────────────────────────┘
-```
-Imagens versionadas em `reports/`. Card de leitura: *"M1 — top features: prazo prometido + distância.
-M2 é dominado por atraso (confirma a H1)."*
-
-**Aba B — Simulador M1 (interativo real)**
-Painel de entrada (esquerda) → resultado (direita). Decisão do usuário: **simulador real**, então a
-predição vem do modelo `.pkl`, não de aproximação DAX.
+KPIs (4 cards): Receita total · Receita em risco (pedidos atrasados) · % receita em risco · Taxa de recompra.
 
 ```
-├── 5 col INPUTS ───────────────────┬── 7 col RESULTADO ────────┐
-│ UF seller        [dropdown]       │  PROBABILIDADE DE ATRASO  │
-│ UF cliente       [dropdown]       │       ┌─────────┐         │
-│ Distância (km)   [slider what-if] │       │  37%    │ gauge   │
-│ Prazo prometido  [slider what-if] │       └─────────┘         │
-│ Frete (R$)       [slider what-if] │  Classificação: ALTO RISCO│
-│ Peso (g)         [slider what-if] │  (threshold custo: 0,30)  │
-│ Categoria        [dropdown]       │  Fatores que mais pesam   │
-│ Dia da semana    [dropdown]       │  (mini SHAP local)        │
-│ [ Calcular ]                      │  Recomendação operacional │
-└────────────────────────────────────────────────────────────────┘
+┌── KPIs (4) ───────────────────────────────────────────────┐
+├── 6 col ──────────────────────────┬── 6 col ──────────────┤
+│ Receita e receita em risco no     │ Recompra: clientes     │
+│ tempo (mês/trimestre)             │ únicos × recorrentes   │
+├── 6 col ──────────────────────────┼── 6 col ──────────────┤
+│ Ticket por cliente / valor por    │ Top clientes / UFs por │
+│ segmento de categoria             │ receita e risco        │
+└────────────────────────────────────────────────────────────┘
 ```
-**Implementação do simulador (real):** uma das duas vias —
-1. **Python visual** dentro do Power BI: carrega `models/modelo1_atraso.pkl` +
-   `models/modelo1_thresholds.pkl`, recebe os valores dos slicers what-if como dataframe e plota
-   o gauge de probabilidade. Mais fiel (usa o modelo treinado), requer Python no Power BI Desktop/Gateway.
-2. **Endpoint Python (FastAPI) + Power BI**: o `.pkl` servido como API; o relatório consome via
-   *Web.Contents*/PowerQuery ou um custom visual. Indicado se publicar no Power BI Service.
-
-> Os controles de entrada usam **What-if parameters** (numéricos) + slicers de dimensão (UF, categoria).
-> O threshold do gauge vem de `modelo1_thresholds.pkl` (faixa verde/amarelo/vermelho).
+- Medidas-base: `Receita Total`, `Receita em Risco`, `% Receita em Risco`, `Total Clientes`,
+  `Clientes Recorrentes`, `Taxa de Recompra`, `Ticket por Cliente` (tabela `_Medidas`, sobre `dim_cliente`).
+- **Card de insight:** quanto do faturamento passa por pedidos atrasados — conecta logística a receita.
 
 ---
 
@@ -247,13 +228,13 @@ ao portfólio e documenta as regras.
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│ 1. Problema de negócio (2 alvos: M1 atraso, M2 review ruim) │
+│ 1. Problema (logística · satisfação · valor em risco)      │
 │ 2. Fonte & escopo: Kaggle · 96.203 pedidos · delivered ·    │
 │    2017-2018 · grão = 1 pedido                              │
 │ 3. Pipeline Medallion (raw→staging→analytics) — mini-diagrama│
 │ 4. Resultados estatísticos (tabela das 4 hipóteses + efeito)│
 │    H1 Mann-Whitney δ=0,55 · Frete×região η²=0,16 · etc.    │
-│ 5. Modelos (M1 0,78 / M2 0,71) + anti-leakage              │
+│ 5. Modelo dimensional (fato + dimensões + 2 marts)         │
 │ 6. Glossário de métricas (taxa de atraso, lead time,        │
 │    prazo prometido, flag_review_ruim…)                      │
 │ 7. Limitações & próximos passos                            │
@@ -271,7 +252,7 @@ ao portfólio e documenta as regras.
 | **Drill-through** | Categoria/UF → página de detalhe | clicar numa categoria abre [2] filtrada |
 | **Cross-filter** | Todas as páginas de gráfico | clique numa barra filtra os demais visuais |
 | **Tooltips de página** | Séries temporais e mapa | tooltip rico (mini-cards) em vez do default |
-| **Bookmarks** | Painel de filtros, toggle do mapa, abas da pág. 5 | botões com estado on/off |
+| **Bookmarks** | Painel de filtros, toggle do mapa (UF cliente/seller) | botões com estado on/off |
 | **Botão "?"** | Cabeçalho | overlay de ajuda explicando ícones/filtros |
 | **Reset** | Painel de filtros | "Limpar filtros" volta ao estado inicial |
 
@@ -294,7 +275,8 @@ dim_date ──< fact_orders >── (mart_logistics, mart_customer_satisfaction
 - Medidas DAX centrais (tabela `_Medidas`): `Taxa Atraso %`, `% Review Ruim`, `Nota Média`,
   `Lead Time Médio`, `Pedidos`, `Δ vs Trim. Anterior` (time intelligence com `dim_date`).
 - Tabela `Metas` (1 linha) para os limiares dos semáforos.
-- Tabelas what-if (`Param Distância`, `Param Prazo`, `Param Frete`, `Param Peso`) para o simulador.
+- Dimensões dedicadas: `dim_geografia` (região + role-playing UF cliente/seller), `dim_categoria`
+  (segmento), `dim_pagamento`, `dim_cliente` (recorrência, valor) — base das páginas 4 e 5.
 
 ---
 
@@ -305,7 +287,7 @@ dim_date ──< fact_orders >── (mart_logistics, mart_customer_satisfaction
 - [ ] Painel de filtros sincronizado (pág. 1–4) + limpar/colapsar.
 - [ ] Medidas DAX + tabela de metas (semáforos).
 - [ ] Tooltips de página, drill-through e cross-filter validados.
-- [ ] Simulador M1 funcional (Python visual carregando `modelo1_atraso.pkl`).
+- [x] Fusão Geográfica + Regional em "Geografia & Regiões" (macro→micro).
 - [ ] View mobile da Visão Executiva.
 - [ ] Página Metodologia preenchida a partir dos `docs/`.
 - [ ] Publicação `.pbix` em `powerbi/` + screenshots em `reports/`.

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p2_kpi0",
   "position": {
-    "x": 252,
-    "y": 118,
-    "z": 6000,
-    "height": 54,
-    "width": 225,
-    "tabOrder": 6000
+    "x": 251.82266009852216,
+    "y": 92.216748768472911,
+    "z": 5000,
+    "height": 79.802955665024626,
+    "width": 225.22167487684729,
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "card",
@@ -37,26 +37,45 @@
       "labels": [
         {
           "properties": {
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Medidas"
-                        }
-                      },
-                      "Property": "Cor Taxa Atraso"
-                    }
-                  }
-                }
-              }
-            },
             "fontSize": {
               "expr": {
                 "Literal": {
                   "Value": "26D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Taxa de Atraso'"
                 }
               }
             }

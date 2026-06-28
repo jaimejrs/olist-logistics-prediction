@@ -3,7 +3,6 @@ __pycache__/
 .env
 data/raw/
 data/processed/
-*.pkl
 .ipynb_checkpoints/
 plano_de_acao.md
 analise_gaps.md

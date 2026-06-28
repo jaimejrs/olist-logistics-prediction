@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "p3_cat_nota",
   "position": {
-    "x": 770,
-    "y": 456,
+    "x": 853.07692307692309,
+    "y": 403.84615384615381,
     "z": 7000,
-    "height": 96,
-    "width": 474,
+    "height": 269.23076923076923,
+    "width": 400,
     "tabOrder": 7000
   },
   "visual": {
@@ -87,6 +87,34 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Nota Média por categoria (top / bottom)'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]
